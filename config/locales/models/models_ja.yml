@@ -1,0 +1,31 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      attendance: 勤怠
+    attributes:
+        user:
+          id: ID
+          name: 名前
+          email: メールアドレス
+          employee_number: 社員番号
+          basic_time: 契約時間
+          basic_startwork_time: 契約出勤時間
+          basic_finishwork_time: 契約退勤時間
+          employment_status: 雇用形態
+
+          basic_work_time: 基本時間
+          work_time: 勤務時間
+          designated_work_start_time: 勤務指定開始時間
+          designated_work_end_time: 勤務指定終了時間
+          password: パスワード
+          password_confirmation: パスワード再入力
+          created_at: 作成日
+          updated_at: 更新日
+        attendance:
+          worked_on: 日付
+          started_at: 出勤時間
+          finished_at: 退勤時間
+          note: 備考
+          user: ユーザーID
+          

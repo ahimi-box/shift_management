@@ -1,0 +1,61 @@
+<% provide(:title, 'All Users') %>
+<% provide(:class_text, 'index') %>
+<% provide(:button_text, '編集する') %>
+<h1>ユーザー一覧</h1>
+
+<div class="search">
+  <span class="search-name">ユーザー名検索</span>
+  <%= form_with(url:users_path, method: :get, local: true) do |f| %> 
+    <%= f.text_field :search, placeholder: "キーワードを入力", class: "form-search" %> 
+    
+    <%= f.submit "検索", class: "btn btn-primary btn-search" %> 
+  <% end %> 
+</div>
+
+
+<div class="col-md-10 col-md-offset-1">
+  <%= will_paginate  %>
+    <table class="table table-condensed table-hover" id="table-users">
+      <thead>
+        <tr>
+          <th><%= User.human_attribute_name :name %></th> 
+          <th class="center"><%= User.human_attribute_name :employment_status %></th> 
+          <% if current_user.admin? %> 
+            <th class="center"><%= User.human_attribute_name :basic_time %></th> 
+            <th class="center"><%= User.human_attribute_name :basic_startwork_time %></th> 
+            <th class="center"><%= User.human_attribute_name :basic_finishwork_time %></th> 
+          <% end %> 
+        </tr> 
+      </thead>
+
+      <% @users.each do |user|  %>
+        <tr>
+          <td>
+            <% if current_user.admin? %> 
+              <%= link_to user.name, user %>
+            <% else %> 
+              <%= user.name  %>
+            <% end %> 
+          </td>
+          <td class="center"><%= user.employment_status.present? ? user.employment_status : "未設定" %></td> 
+          <% if current_user.admin? %> 
+            <td class="center"><%= format_basic_info(user.basic_time) %></td> 
+            <td class="center"><%= format_basic_info(user.basic_startwork_time) %></td> 
+            <td class="center"><%= format_basic_info(user.basic_finishwork_time) %></td> 
+          <% end %> 
+          <td class="center"> 
+            <% if current_user.admin? && !current_user?(user) %> 
+              <%= link_to "基本情報編集", edit_basic_info_user_path(user), remote: true, class: "btn btn-success" %> 
+              <%= link_to "削除", user, method: :delete, 
+                data: { confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %> 
+            <% end %> 
+          </td>
+        </tr>
+      <% end %> 
+    </table>  
+  <%= will_paginate %> 
+</div>
+
+<!--モーダルウインドウ表示-->
+<div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
