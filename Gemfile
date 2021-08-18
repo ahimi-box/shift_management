@@ -18,6 +18,12 @@ gem 'rounding'
 # ↓アップする時コメントにする
 gem 'sqlite3'
 
+#カレンダー
+gem 'simple_calendar', '~> 2.0'
+
+# グラフ
+gem 'chartkick'
+
 gem 'byebug'
 gem 'roo'
 

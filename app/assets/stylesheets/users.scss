@@ -33,11 +33,13 @@
     vertical-align: middle;
     text-align: center;
   }
+  
   td {
     vertical-align: middle;
     text-align: center;
   }
 }
+
 
 /* 入力フォーム */
 
@@ -77,4 +79,9 @@
 .btn-basic-info {
   margin: 15px 0;
   width: 30%;
+}
+
+// show
+.user-btn {
+  margin: 15px 0;
 }

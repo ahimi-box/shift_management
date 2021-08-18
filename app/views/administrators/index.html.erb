@@ -1,0 +1,29 @@
+<div>
+<h1>皆さんにお知らせ</h1>
+  <%= form_with(model: @administrator, local: true) do |f| %>
+    <div class="center">
+      <p><%= f.label "お知らせ内容"%></p>  
+      <p><%= f.text_area :notice, size: "80x5" %>
+      </p> 
+            
+      <%= f.submit "登録", class: "btn btn-primary btn-search" %>    
+    </div>    
+  <% end %>
+  <div class="box">
+    <% if @administrators.present? %>
+      <% @administrators.each do |administrator| %>
+        <p>
+          <%= administrator.id %>.
+          <%= administrator.notice %>
+          <%= link_to "編集", edit_user_administrator_path(@user, administrator), remote: true, class: "btn btn-success" %>
+          <%= link_to "削除", user_administrator_path(@user, administrator.id), method: :delete, data: { confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %> 
+        </p>
+      <% end %>
+    <% else %>
+      <p>お知らせはありません。</p>
+    <% end %>
+  </div>
+</div>
+<!--モーダルウインドウ表示-->
+<div id="administrators-edit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<%# <div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div> %>

@@ -1,0 +1,89 @@
+<% provide(:title, @user.name) %>  
+<%= form_with(model: @shift, url: update_one_month_user_shift_path(date: @first_day), local: true, method: :patch) do |f| %>
+  <h1><%= @user.name %>さんのシフト申請</h1>
+  <table class="table table-bordered table-condensed user-table">
+    <tr>
+      <td colspan="2">契約開始時間<span class="time-space1"><%= @user.basic_startwork_time.strftime('%H:%M') %></span><br>契約終了時間<span class="time-space1"><%= @user.basic_finishwork_time.strftime('%H:%M') %></span></td>
+      <td colspan="2">契約時間  <span class="time-space2"><%= format_basic_info(@user.basic_time) %></span></td>
+    </tr>
+
+    <tr>
+      <td colspan="2">雇用形態：<%= @user.employment_status.present? ? @user.employment_status : "未" %></td> 
+      <td>社員番号<%= @user.employee_number %></td>
+    </tr>
+  </table>
+
+  <div class="box">
+    <% if @administrators.present? %>
+      <p class="admin_memo">皆さんにお知らせ</p>
+      <% @administrators.each do |administrator| %>
+        <% if administrator.notice.present? %>
+          <p><%= administrator.notice %></p>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>お知らせはありません。</p>
+    <% end %>
+  </div>
+
+  
+  <div>
+    <p><%= link_to "←", edit_one_month_user_shift_path(@user,@user, date: @first_day.prev_month), class: "btn btn-primary btn-sm" %>【<%= l(@first_day, format: :middle) %>】<%= link_to "→", edit_one_month_user_shift_path(@user,@user, date: @first_day.next_month), class: "btn btn-primary btn-sm" %></p>
+  </div>
+
+
+    <div>
+    <table class="table table-bordered table-condensed table-hover" id="table-attendances">
+      <thead>
+        <tr>
+          <th>日付</th>
+          <th>曜日</th>
+          <th>希望出勤時間</th>
+          <th>希望退勤時間</th>
+          <th>メモ  ※シフト管理者にコメントがあればここにどうぞ</th> 
+          
+        </tr>
+      </thead>
+  
+      <tbody>
+        <% @shifts.each do |day| %>
+          <%= f.fields_for "shifts[]", day do |shift| %>
+            <tr>
+              <td><%= l(day.worked_on, format: :short) %></td>
+              <td>
+                <% if day.worked_on.wday == 0 %>
+                  <div class="sunday"><%= $days_of_the_week[day.worked_on.wday] %></div>
+                <% elsif day.worked_on.wday == 6 %>
+                  <div class="saturday"><%= $days_of_the_week[day.worked_on.wday] %></div>
+                <% else %>
+                  <%= $days_of_the_week[day.worked_on.wday] %>
+                <% end %>                  
+              </td>
+              <%= shift.hidden_field :start_time ,value: day.worked_on %>
+              
+              <%= shift.hidden_field :desired_attendance_time ,value: day.started_at %>
+              <%= shift.hidden_field :desired_leave_time ,value: day.finished_at %>
+
+              <td><%= shift.time_field :started_at, class: "form-control" %></td>
+              <td><%= shift.time_field :finished_at, class: "form-control" %></td>
+              <td>
+                <%= shift.text_field :user_memo, class: "form-control" %>
+              </td>
+              <% if @user.admin %>
+              <%# <td> %>
+                <%# <%= shift.text_field :admin_memo, class: "form-control"  %>
+              <%# </td> %>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="center">
+    <%= link_to "キャンセル", user_shifts_path(@user, date: @first_day), class: "btn btn-lg btn-primary" %>
+    <%= f.submit "シフト申請", class: "btn btn-lg btn-primary" %>
+  </div>
+
+<% end %>

@@ -1,1 +1,149 @@
-<h1>showページ</h1>
+<%# <h1>showページ</h1> %>
+<% provide(:title, @user.name) %>
+<div>
+  <h1><%= @user.name %>さんシフト決定</h1>
+  <table class="table table-bordered table-condensed user-table">
+    <tr>
+      <%# <td colspan="2"><%= link_to "←", user_path(date: @first_day.prev_month), class: "btn btn-primary btn-sm" 【<%= l(@first_day, format: :middle) 】時間管理表 <%= link_to "→", user_path(date: @first_day.next_month), class: "btn btn-primary btn-sm"</td>  %>
+      <td colspan="2">契約開始時間<span class="time-space1"><%= @user.basic_startwork_time.strftime('%H:%M') %></span><br>契約終了時間<span class="time-space1"><%= @user.basic_finishwork_time.strftime('%H:%M')%></span></td> 
+      <td colspan="2">契約時間  <span class="time-space2"><%= format_basic_info(@user.basic_time) %></span></td>
+    </tr>
+
+    <tr>
+      <td colspan="2">雇用形態：<%= @user.employment_status.present? ? @user.employment_status : "未所属" %></td>
+      <%# <td colspan="2">氏名  <%= @user.name </td> %>
+      <td>社員番号<%= @user.employee_number %></td>
+    </tr>
+  </table>
+</div>
+
+
+<%# <% debugger %> 
+
+<%# <% if @current_user.id == params[:id].to_i %> 
+<div class="user-btn">
+  <%= link_to "シフト申請", user_shifts_path(@user, date: @first_day), class: "btn btn-primary btn-sm" %>
+</div>
+<%# <%= link_to "シフト決定画面", "#", class: "btn btn-primary btn-sm" %> 
+
+<%# <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-primary btn-sm" %>   
+<%# <%= link_to "CSV出力", user_path(format: :csv), class: "btn btn-primary btn-sm" %>
+<%# <%= link_to "勤怠修正ログ(承認済)", user_attendance_logapplies_path(@user,@user), class: "btn btn-primary btn-sm" %>  
+<%# <% end %> 
+
+<div class="box"> 
+  <% if @administrators.present? %>
+    <p class="admin_memo">皆さんにお知らせ</p>
+    <% @administrators.each do |administrator| %>
+      <% if administrator.notice.present? %>
+        <p><%= administrator.notice %></p>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p>お知らせはありません。</p>
+  <% end %>
+</div>
+
+
+<% if @user == current_user %>
+  <%# <div class="col-md-8"> %>
+    <%= month_calendar events: @shifts do |date, shifts| %>
+    <%# <%= week_calendar(number_of_weeks: 2) events: @shifts do |date, shifts| %> 
+      <%= date.day %>
+
+      <% shifts.each do |shift| %>
+        <div class="center">
+
+          <% if @user.id == shift.user_id %>
+            <% if shift.determined_arrival_time.present? %>
+            <%# <%= link_to shift.started_at&.strftime("%H:%M"), [@user,shift] %>
+            <%= shift.determined_arrival_time&.strftime("%H:%M") %><br>
+            <% end %>
+            <% if shift.decided_leaving_time.present? %>
+            <%= shift.decided_leaving_time&.strftime("%H:%M") %><br>
+            <% end %>
+            <% if shift.user_memo.present? && shift.determined_arrival_time.present? && shift.decided_leaving_time.present? %>
+            <%= shift.user_memo %><br>
+            <% end %>
+            <% if shift.admin_memo.present? && shift.determined_arrival_time.present? && shift.decided_leaving_time.present? %>
+            <%= shift.admin_memo %>
+            <% end %>
+
+            <%# 管理者が決定したら表示する項目を作る %>
+
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  <%# </div> %>
+<% end %>
+
+<%# <div> %>
+  <%# <table class="table table-bordered table-condensed table-hover" id="table-attendances"> %>
+    <%# <thead> %>
+      <%# <tr>
+      <th colspan="3"></th>
+      <th colspan="8">【実績】</th>
+      <th colspan="5">所定外勤務</th>
+
+      </tr> %>
+      <%# <tr> %>
+        
+        <%# <th>日付</th> %>
+        <%# <th>曜日</th> %>
+        <%# <th>希望出勤時間</th> %>
+        <%# <th>希望退勤時間</th> %>
+        <%# <th></th> %>
+        <%# <th>メモ</th> %>
+        <%# <th>終了予定時間</th> %>
+        <%# <th>時間外時間</th> %>
+        <%# <th>業務処理内容</th> %>
+        <%# <th>指示者確認㊞</th> %>
+        
+      <%# </tr> %>
+      <%# <tr>
+        <th>時</th>
+        <th>分</th>
+        <th></th>
+        <th>時</th>
+        <th>分</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>時</th>
+        <th>分</th>
+        
+      </tr> %>
+    <%# </thead> %>
+      <%# <%debugger %>
+    <%# <tbody> %>
+      <%# <% @shifts.each do |day|  %>
+        <%# <tr> %>
+          <%# <td><%= l(day.worked_on, format: :short) </td> %>
+          <%# <td> %>
+            <%# <% if day.worked_on.wday == 0 %> 
+             <%# <div class="sunday"><%= $days_of_the_week[day.worked_on.wday] </div> %>
+            <%# <% elsif day.worked_on.wday == 6  %>
+             <%# <div class="saturday"><%= $days_of_the_week[day.worked_on.wday] </div> %>
+            <%# <% else % %>
+              <%# <%= $days_of_the_week[day.worked_on.wday]  %>
+            <%# <% end % %>
+          <%# </td> %>
+          <%# <td><%= day&.started_at&.strftime('%H:%M') </td> %>
+          <%# <td><%= day&.finished_at&.strftime('%H:%M')</td> %>
+          <%# <td><%= day.user_memo %</td>           %>
+        <%# </tr> %>
+      <%# <% end  %>
+    <%# </tbody> %>
+  <%# </table> %>
+<%# </div> %>
+
+<!--モーダルウインドウ表示-->
+
+<%# <div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div> %>
+
+
+
+
+
+

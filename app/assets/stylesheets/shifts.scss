@@ -1,0 +1,61 @@
+// Place all the styles related to the Shifts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// index
+.index-submit{
+    margin-top: 10px;
+}
+
+.admin_memo{
+    color: black;
+}
+
+.box {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    color: #6091d3;/*文字色*/
+    background: #FFF;
+    border: solid 3px #6091d3;/*線*/
+    border-radius: 10px;/*角の丸み*/
+}
+.box p {
+    margin: 0; 
+    padding: 0;
+}
+
+// edit
+.shift-edit-submit{
+    margin-top: 10px;
+}
+.shift-edit-btn {
+    margin-left: 20px;
+}
+
+// apply_edit
+.float-left {
+  float: left;
+}
+#table-apply_edit {
+  // display: flex;
+  // background: blue;
+  // float: left;
+  // width: 30%;
+  th {
+    vertical-align: middle;
+    text-align: center;
+    // display: flex;
+    font-size:  8px;
+  }
+  
+  td {
+    vertical-align: middle;
+    text-align: center;
+    // display: flex;
+    font-size: 8px;
+  }
+}
+
+
+  

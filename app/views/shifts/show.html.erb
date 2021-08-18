@@ -1,0 +1,17 @@
+<% provide(:title, 'Application list day') %>
+<% if @user == current_user %>
+  <div class="show">
+    <h1>day申請確認</h1>
+
+  <div>
+    <p><%= link_to "←", user_shift_path(@user, date: params[:date].to_date.yesterday), class: "btn btn-primary btn-sm" %>【<%= l(params[:date].to_date, format: :long) %>】<%= link_to "→", user_shift_path(@user, current_user, date: params[:date].to_date.tomorrow), class: "btn btn-primary btn-sm" %></p>
+  </div>
+  <div>
+    <%= javascript_include_tag "//www.google.com/jsapi" %>
+    <%= timeline @timeline %>
+  </div>
+  <div>
+    <%# <%= link_to '消去',user_shift_path(@user,@shift.id), method: :delete, data: { confirm: '本当に削除しますか?' }, class: "btn btn-danger" %> 
+    <%= link_to '戻る', apply_edit_user_shift_path(current_user, current_user), class: "btn btn-primary"%> 
+  </div>
+<% end %>

@@ -1,0 +1,51 @@
+<% provide(:title, 'shift_edit') %>
+<div>
+  <h1>申請編集</h1>
+  <%= form_with(model: [@user,@shift], url: user_shift_path(date: @first_day), local: true, method: :patch) do |f| %>          
+    <table class="table table-bordered table-hover float-sm-left " id="table-apply_edit">
+      <thead>
+        <tr>
+          <th scope="col" colspan="2"></th>
+          <%# <%debugger%> 
+          <th scope="col" colspan="4"><%= @user.name%></th> 
+        </tr>
+        <tr>
+          <th scope="col">日付</th>
+          <th scope="col">曜日</th>
+          <th scope="col">希望出勤<br>希望退勤</th>
+          <th scope="col">メモ</th>
+          <th>時刻変更</th>
+          <th>管理者が個人への<br>お知らせ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shifts.each do |day|  %>
+        <tr>
+          <th scope="row"><%= l(day.worked_on, format: :short)%></th>
+          <th scope="row">
+            <% if day.worked_on.wday == 0 %>
+              <div class="sunday"><%= $days_of_the_week[day.worked_on.wday]%></div> 
+            <% elsif day.worked_on.wday == 6 %>
+              <div class="saturday"><%= $days_of_the_week[day.worked_on.wday]%></div> 
+            <% else %>
+              <%= $days_of_the_week[day.worked_on.wday] %>
+            <% end %>
+          </th>
+          <td><%= day&.started_at&.strftime('%H:%M')%><br><%= day&.finished_at&.strftime('%H:%M') %></td>
+          <td><%= day.user_memo%></td>
+          <%= f.fields_for "shift[]", day do |apply| %>
+        
+            <td><%= apply.time_field :desired_attendance_time, class: "form-control" %><br><%= apply.time_field :desired_leave_time, class: "form-control" %></td>
+            <td><%= apply.text_field :admin_memo ,class: "form-control" %></td>
+          <% end %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>  
+    <div class="center">
+      <%# <%= link_to "キャンセル", user_shift_path(current_user, current_user)(date: @first_day), class: "btn btn-lg btn-primary" %> 
+      <%= link_to "キャンセル", user_shift_path(current_user, current_user, date: @first_day), class: "btn btn-lg btn-primary" %>
+      <%= f.submit "編集を保存する", class: "btn btn-lg btn-primary" %>
+    </div>
+  <% end %>  
+</div>

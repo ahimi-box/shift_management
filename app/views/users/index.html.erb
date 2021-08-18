@@ -40,8 +40,8 @@
           <td class="center"><%= user.employment_status.present? ? user.employment_status : "未設定" %></td> 
           <% if current_user.admin? %> 
             <td class="center"><%= format_basic_info(user.basic_time) %></td> 
-            <td class="center"><%= format_basic_info(user.basic_startwork_time) %></td> 
-            <td class="center"><%= format_basic_info(user.basic_finishwork_time) %></td> 
+            <td class="center"><%= user.basic_startwork_time.strftime('%H:%M') %></td> 
+            <td class="center"><%= user.basic_finishwork_time.strftime('%H:%M') %></td> 
           <% end %> 
           <td class="center"> 
             <% if current_user.admin? && !current_user?(user) %> 

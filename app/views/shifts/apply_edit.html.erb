@@ -1,0 +1,72 @@
+<% provide(:title, 'Application list') %>
+<% if @user == current_user %>
+  <div class="show">
+    <h1>申請一覧</h1>
+    <div class="box"> 
+      <% if @administrators.present? %>
+        <p class="admin_memo">皆さんにお知らせ</p>
+        <% @administrators.each do |administrator| %>
+          <% if administrator.notice.present? %>
+            <p><%= administrator.notice %></p>
+          <% end %>
+        <% end %>
+      <% else %>
+        <p>お知らせはありません。</p>
+      <% end %>
+    </div>
+    <div>
+      <p><%= link_to "←", apply_edit_user_shift_path(@user, date: @first_day.prev_month), class: "btn btn-primary btn-sm" %>【<%= l(@first_day, format: :middle) %>】<%= link_to "→", apply_edit_user_shift_path(@user, date: @first_day.next_month), class: "btn btn-primary btn-sm" %></p>
+    </div>
+    <% @groups.each do |id, shift| %>
+    <%# <% @groups.each do |day| %> 
+    <%# <%debugger%> 
+      <% user = User.find(id) %>
+      <table class="table table-bordered table-hover float-sm-left " id="table-apply_edit">
+        <thead>
+          <tr>
+            <th></th>
+            <% shift.each do |day| %>
+              <th><%= link_to l(day.worked_on, format: :short), user_shift_path(current_user, current_user, date: day.worked_on) %></th>
+            <% end %>
+          </tr>
+          <tr>
+            <th></th>
+            <% shift.each do |day| %>
+              
+              <th>
+                <% if day.worked_on.wday == 0 %>
+                  <div class="sunday"><%= $days_of_the_week[day.worked_on.wday]%></div> 
+                <% elsif day.worked_on.wday == 6 %>
+                  <div class="saturday"><%= $days_of_the_week[day.worked_on.wday]%></div> 
+                <% else %>
+                  <%= $days_of_the_week[day.worked_on.wday] %>
+                <% end %>
+              </th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <%# !current_user?(user) %>
+          <%# <%debugger%> 
+            <td>
+              <%= user.name%><%= link_to '編集', edit_user_shift_path(user, @shift, date: @first_day), class: "btn btn-sm btn-primary" %>
+            </td> 
+            <% shift.each do |day| %>
+              <td>
+                <%# <% if day.desired_attendance_time.present? && day.desired_leave_time.present? %> 
+                <%= day&.desired_attendance_time&.strftime('%H:%M') %><br><%= day&.desired_leave_time&.strftime('%H:%M')  %><br><%= day.user_memo%>
+              </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+    <%# <%= link_to '消去',user_shift_path(@user,@shift.id), method: :delete, data: { confirm: '本当に削除しますか?' }, class: "btn btn-danger" %> 
+    <%# <%= link_to '戻る', user_shifts_path, class: "btn btn-primary" %> 
+  </div>
+<% end %>
+
+
+
+

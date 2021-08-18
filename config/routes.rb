@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'static_pages#top'
   get '/signup', to: 'users#new'
-  
   get    '/login', to: 'sessions#new'
   post   '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
@@ -15,6 +14,22 @@ Rails.application.routes.draw do
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
+
+      
+      # get 'shifts/edit_one_month'
+      # patch 'shifts/update_one_month'
     end
+    resources :shifts do
+      member do
+        get 'edit_one_month'
+        patch 'update_one_month'
+
+        get 'apply_edit'
+        patch 'apply_update'
+        # get 'apply_confirmation_edit'
+        # patch 'apply_confirmation_update'
+      end
+    end
+    resources :administrators
   end
 end
