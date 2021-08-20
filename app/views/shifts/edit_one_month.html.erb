@@ -31,56 +31,59 @@
     <p><%= link_to "←", edit_one_month_user_shift_path(@user,@user, date: @first_day.prev_month), class: "btn btn-primary btn-sm" %>【<%= l(@first_day, format: :middle) %>】<%= link_to "→", edit_one_month_user_shift_path(@user,@user, date: @first_day.next_month), class: "btn btn-primary btn-sm" %></p>
   </div>
 
+  <div>
+    <P class="comment_memo">※シフト管理者にコメントがあればメモにどうぞ</p>
+    <div class="table-responsive">
+    
+      <table class="table table-bordered table-condensed table-hover" id="table-attendances">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>曜日</th>
+            <th>希望出勤時間</th>
+            <th>希望退勤時間</th>
+            <th>メモ</th> 
+            
+          </tr>
+        </thead>
+    
+        <tbody>
+          <% @shifts.each do |day| %>
+            <%= f.fields_for "shifts[]", day do |shift| %>
+              <tr>
+                <td><%= l(day.worked_on, format: :short) %></td>
+                <td>
+                  <% if day.worked_on.wday == 0 %>
+                    <div class="sunday"><%= $days_of_the_week[day.worked_on.wday] %></div>
+                  <% elsif day.worked_on.wday == 6 %>
+                    <div class="saturday"><%= $days_of_the_week[day.worked_on.wday] %></div>
+                  <% else %>
+                    <%= $days_of_the_week[day.worked_on.wday] %>
+                  <% end %>                  
+                </td>
+                <%= shift.hidden_field :start_time ,value: day.worked_on %>
+                
+                <%= shift.hidden_field :desired_attendance_time ,value: day.started_at %>
+                <%= shift.hidden_field :desired_leave_time ,value: day.finished_at %>
 
-    <div>
-    <table class="table table-bordered table-condensed table-hover" id="table-attendances">
-      <thead>
-        <tr>
-          <th>日付</th>
-          <th>曜日</th>
-          <th>希望出勤時間</th>
-          <th>希望退勤時間</th>
-          <th>メモ  ※シフト管理者にコメントがあればここにどうぞ</th> 
-          
-        </tr>
-      </thead>
-  
-      <tbody>
-        <% @shifts.each do |day| %>
-          <%= f.fields_for "shifts[]", day do |shift| %>
-            <tr>
-              <td><%= l(day.worked_on, format: :short) %></td>
-              <td>
-                <% if day.worked_on.wday == 0 %>
-                  <div class="sunday"><%= $days_of_the_week[day.worked_on.wday] %></div>
-                <% elsif day.worked_on.wday == 6 %>
-                  <div class="saturday"><%= $days_of_the_week[day.worked_on.wday] %></div>
-                <% else %>
-                  <%= $days_of_the_week[day.worked_on.wday] %>
-                <% end %>                  
-              </td>
-              <%= shift.hidden_field :start_time ,value: day.worked_on %>
-              
-              <%= shift.hidden_field :desired_attendance_time ,value: day.started_at %>
-              <%= shift.hidden_field :desired_leave_time ,value: day.finished_at %>
-
-              <td><%= shift.time_field :started_at, class: "form-control" %></td>
-              <td><%= shift.time_field :finished_at, class: "form-control" %></td>
-              <td>
-                <%= shift.text_field :user_memo, class: "form-control" %>
-              </td>
-              <% if @user.admin %>
-              <%# <td> %>
-                <%# <%= shift.text_field :admin_memo, class: "form-control"  %>
-              <%# </td> %>
-              <% end %>
-            </tr>
+                <td><%= shift.time_field :started_at, class: "form-control" %></td>
+                <td><%= shift.time_field :finished_at, class: "form-control" %></td>
+                <td>
+                  <%= shift.text_field :user_memo, class: "form-control" %>
+                </td>
+                <% if @user.admin %>
+                <%# <td> %>
+                  <%# <%= shift.text_field :admin_memo, class: "form-control"  %>
+                <%# </td> %>
+                <% end %>
+              </tr>
+            <% end %>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
-  
+
   <div class="center">
     <%= link_to "キャンセル", user_shifts_path(@user, date: @first_day), class: "btn btn-lg btn-primary" %>
     <%= f.submit "シフト申請", class: "btn btn-lg btn-primary" %>

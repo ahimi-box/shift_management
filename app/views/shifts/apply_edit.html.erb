@@ -2,6 +2,7 @@
 <% if @user == current_user %>
   <div class="show">
     <h1>申請一覧</h1>
+
     <div class="box"> 
       <% if @administrators.present? %>
         <p class="admin_memo">皆さんにお知らせ</p>
@@ -14,9 +15,14 @@
         <p>お知らせはありません。</p>
       <% end %>
     </div>
+
+    <%# チェック済のみ送信されます。 %>
+    <%# シフト決定(皆さんにデータ送信) %>
+    
     <div>
       <p><%= link_to "←", apply_edit_user_shift_path(@user, date: @first_day.prev_month), class: "btn btn-primary btn-sm" %>【<%= l(@first_day, format: :middle) %>】<%= link_to "→", apply_edit_user_shift_path(@user, date: @first_day.next_month), class: "btn btn-primary btn-sm" %></p>
     </div>
+    
     <% @groups.each do |id, shift| %>
     <%# <% @groups.each do |day| %> 
     <%# <%debugger%> 

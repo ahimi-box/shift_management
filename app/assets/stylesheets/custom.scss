@@ -51,7 +51,6 @@ p {
 }
 
 /* ヘッダー */
-
 #logo {
   float: left;
   margin-right: 10px;
@@ -67,6 +66,8 @@ p {
   color: #fff;
   text-decoration: none;
 }
+
+
 
 /* デバッグウインドウ */
 
@@ -103,9 +104,40 @@ p {
   padding-top: 10%;
 }
 
+// shift/edit
+.user_name {
+  font-size: 15px;
+}
+
+
+// @media screen and (min-width: 768px) {
+// @media screen and (min-width: 480px) {
+// タブレット
+@media (max-width: 1000px) {
+  
+  .sp {
+    display: none;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+  
+}
+
+
 /* レスポンシブ */ 
 @media screen and (max-width:480px) {
- 
-	
- 
+  .pc{
+    display: none;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .comment_memo{
+    font-size: 12px;
+  }
+
 }
