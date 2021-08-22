@@ -15,6 +15,9 @@
           <%= form_with(model: @user, url: update_basic_info_user_path(@user), local: true, method: :patch) do |f| %>
             <%= render 'shared/error_messages', object: @user %>
 
+            <%= f.label :classification, class: "label-#{yield(:class_text)}" %>
+            <%= f.text_field :classification, class: "form-control" %>
+
             <%= f.label :name, class: "label-#{yield(:class_text)}" %>
             <p><%= @user.name %></p>
 

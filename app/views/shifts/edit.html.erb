@@ -44,7 +44,7 @@
     </table>  
     <div class="center">
       <%# <%= link_to "キャンセル", user_shift_path(current_user, current_user)(date: @first_day), class: "btn btn-lg btn-primary" %> 
-      <%= link_to "キャンセル", user_shift_path(current_user, current_user, date: @first_day), class: "btn btn-lg btn-primary" %>
+      <%= link_to "キャンセル", apply_edit_user_shift_path(current_user, @user, date: @first_day), class: "btn btn-lg btn-primary" %>
       <%= f.submit "編集を保存する", class: "btn btn-lg btn-primary" %>
     </div>
   <% end %>  

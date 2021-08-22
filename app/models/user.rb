@@ -13,6 +13,7 @@ class User < ApplicationRecord
   validates :basic_time, presence: true
   
   validates :employee_number, presence: true, uniqueness: true
+  validates :classification, uniqueness: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   

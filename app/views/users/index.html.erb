@@ -18,6 +18,7 @@
     <table class="table table-condensed table-hover" id="table-users">
       <thead>
         <tr>
+          <th><%= User.human_attribute_name :classification %></th> 
           <th><%= User.human_attribute_name :name %></th> 
           <th class="center"><%= User.human_attribute_name :employment_status %></th> 
           <% if current_user.admin? %> 
@@ -30,6 +31,7 @@
 
       <% @users.each do |user|  %>
         <tr>
+          <td><%= user.classification.present? ? user.classification : "未" %></td>
           <td>
             <% if current_user.admin? %> 
               <%= link_to user.name, user %>

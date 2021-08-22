@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info, ]
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
-  before_action :correct_user, only: [:edit, :update]   
+  before_action :correct_user, only: [:show, :edit, :update]   
   before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
   before_action :set_one_month, only: :show
   # 管理者権限
-  # before_action :admin_or_correct_user, only: 
+  before_action :admin_or_correct_user, only: :index 
 
   def index
     # @users = User.all
@@ -13,14 +13,17 @@ class UsersController < ApplicationController
     # # 条件分岐
     @users = if params[:search].present?
         # searchされた場合は、原文+.where('name LIKE ?', "%#{params[:search]}%")を実行
-      User.paginate(page: params[:page]).search(params[:search])
+      User.paginate(page: params[:page],per_page: 10).search(params[:search]).order(:classification)
     else
       #searchされていない場合は、原文そのまま
-      User.paginate(page: params[:page])
+      User.paginate(page: params[:page],per_page: 10).order(:classification)
     end
   end
 
   def show
+    # if @user.admin
+    #   redirect_to users_index_url
+    # end
     # @worked_sum = @attendances.where.not(started_at: nil).count
     # byebug
 
@@ -81,13 +84,13 @@ class UsersController < ApplicationController
     end
     
     def basic_info_params
-      params.require(:user).permit(:name, :email, :employment_status, :employee_number, :password, :basic_time, :basic_startwork_time, :basic_finishwork_time)
+      params.require(:user).permit(:classification, :name, :email, :employment_status, :employee_number, :password, :basic_time, :basic_startwork_time, :basic_finishwork_time)
     end
 
     # 管理者
     def admin_or_correct_user
       # byebug
-      @user = User.find(params[:id]) if @user.blank?
+      # @user = User.find(params[:id]) if @user.blank?
       unless current_user?(@user) || current_user.admin?
         # flash[:danger] = "編集権限がありません。"
         flash[:danger] = "不正なアクセスです。"

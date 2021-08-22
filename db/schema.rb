@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210816152707) do
+ActiveRecord::Schema.define(version: 20210820055632) do
 
   create_table "administrators", force: :cascade do |t|
     t.string "notice"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20210816152707) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "apply_check"
     t.index ["user_id"], name: "index_shifts_on_user_id"
   end
 
@@ -45,11 +46,12 @@ ActiveRecord::Schema.define(version: 20210816152707) do
     t.string "employment_status"
     t.integer "employee_number"
     t.boolean "admin"
-    t.datetime "basic_time", default: "2021-08-17 08:00:00"
-    t.datetime "basic_startwork_time", default: "2021-08-17 08:30:00"
-    t.datetime "basic_finishwork_time", default: "2021-08-17 18:30:00"
+    t.datetime "basic_time", default: "2021-08-20 08:00:00"
+    t.datetime "basic_startwork_time", default: "2021-08-20 08:30:00"
+    t.datetime "basic_finishwork_time", default: "2021-08-20 18:30:00"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "classification"
   end
 
 end
