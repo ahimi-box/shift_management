@@ -1,0 +1,69 @@
+<% provide(:title, 'Edit') %>
+<% provide(:class_text, 'user--edit') %>
+<% provide(:button_text, '更新') %>
+<h1>アカウント情報の更新</h1>
+
+<%# <h1>Edit <%= resource_name.to_s.humanize </h1> %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "users/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <%= f.label :employee_number, class: "label-#{yield(:class_text)}" %>
+        <%= f.text_field :employee_number, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :name, class: "label-#{yield(:class_text)}" %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email, class: "label-#{yield(:class_text)}" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :password, class: "label-#{yield(:class_text)}" %> 
+        <%# <i>(leave blank if you don't want to change it)</i><br /> %>
+        <i>(空欄のままなら変更しません)</i><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+        <% if @minimum_password_length %>
+          <%# <br /> %>
+          <%# <em><%= @minimum_password_length  characters minimum</em> %>
+          <em><%= @minimum_password_length %> 文字以上</em>
+        <% end %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation, class: "label-#{yield(:class_text)}" %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :current_password, class: "label-#{yield(:class_text)}" %> 
+        <%# <i>(we need your current password to confirm your changes)</i><br /> %>
+        <i>(変更を確認するには、現在のパスワードが必要です)</i><br />
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+      </div>
+
+      <div class="actions">
+        <%# <%= f.submit "Update" %> 
+        <%= f.submit "#{yield(:button_text)}", class: "btn btn-primary btn-block btn-#{yield(:button_text)} btn-form" %>
+      </div>
+    <% end %>
+
+    <hr>
+    <h3>アカウント削除</h3>
+
+    <p><%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "削除してよろしいですか？" }, method: :delete, class: "btn btn-danger" %></p>
+
+    <%# <%= link_to "Back", :back, class: "btn btn-primary" %> 
+  </div>
+</div>

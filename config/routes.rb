@@ -1,10 +1,23 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => {
+    :registrations => 'users/registrations',
+    :sessions => 'users/sessions'   
+  } 
+  
+  devise_scope :user do
+    # root to: "home#index"
+    root to: "users/sessions#new"  
+    get "sign_in", :to => "users/sessions#new"
+    get "sign_out", :to => "users/sessions#destroy" 
+  end
+
   get 'static_pages/top'
 
-  get 'users/index'
+  # get 'users/index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'static_pages#top'
+  # root 'static_pages#top'
+  # root to: "home#index"
   get '/signup', to: 'users#new'
   get    '/login', to: 'sessions#new'
   post   '/login', to: 'sessions#create'

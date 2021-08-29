@@ -27,7 +27,9 @@ gem 'chartkick'
 gem 'byebug'
 gem 'roo'
 
-
+gem 'devise'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 
 group :development, :test do
   gem 'sqlite3'

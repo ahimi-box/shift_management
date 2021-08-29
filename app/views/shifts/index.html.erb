@@ -3,12 +3,25 @@
 
   <div class="toppage">
     <h1 class="top"><%= @user.name %>さんのシフト申請確認</h1>
-    <br>
-    <div>
+    <table class="table table-bordered table-condensed user-table">
+      <tr>
+        <%# <td colspan="2"><%= link_to "←", user_path(date: @first_day.prev_month), class: "btn btn-primary btn-sm" 【<%= l(@first_day, format: :middle) 】時間管理表 <%= link_to "→", user_path(date: @first_day.next_month), class: "btn btn-primary btn-sm"</td>  %>
+        <td colspan="2">契約開始時間<span class="time-space1"><%= @user.basic_startwork_time.strftime('%H:%M') %></span><br>契約終了時間<span class="time-space1"><%= @user.basic_finishwork_time.strftime('%H:%M')%></span></td> 
+        <td colspan="2">契約時間  <span class="time-space2"><%= format_basic_info(@user.basic_time) %></span></td>
+      </tr>
+
+      <tr>
+        <td colspan="2">雇用形態：<%= @user.employment_status.present? ? @user.employment_status : "未所属" %></td>
+        <%# <td colspan="2">氏名  <%= @user.name </td> %>
+        <td>社員番号<%= @user.employee_number %></td>
+      </tr>
+    </table>
     
-    <%# <%= link_to "シフトの申請入力画面へ", shifts_edit_one_month_user_path(@user, date: @first_day), class: "btn btn-primary btn-sm" %> 
-    <%= link_to "シフトの申請入力", edit_one_month_user_shift_path(@user,@user, date: @first_day), class: "btn btn-primary btn-sm" %>
-    <%= link_to "シフト決定画面へ", user_path(@user, date: @first_day), class: "btn btn-primary btn-sm" %>
+    <%# <div class="col-md-10 col-md-offset-1"> %>
+    <div>
+      <%# <%= link_to "シフトの申請入力画面へ", shifts_edit_one_month_user_path(@user, date: @first_day), class: "btn btn-primary btn-sm" %> 
+      <%= link_to "シフトの申請入力", edit_one_month_user_shift_path(@user,@user, date: @first_day), class: "btn btn-primary btn-sm" %>
+      <%= link_to "シフト決定画面へ", user_path(@user, date: @first_day), class: "btn btn-primary btn-sm" %>
 
     </div>
     <%# <div class="row"> %>
@@ -93,9 +106,13 @@
       </div>
       
 
-      <br>
-      <br>
+      <%# <br> %>
+      <%# <br> %>
       <%# <div class="col-md-8"> %>
+      <div class="col-md-10 col-md-offset-1">
+      <div class="col-md-10 col-md-offset-1 table-responsive">
+      <%# <div class="col-sm-12 "> %>
+      <%# <div> %>
         <%= month_calendar events: @shifts do |date, shifts| %>
         <%# <%= week_calendar(number_of_weeks: 2) events: @shifts do |date, shifts| %> 
           <%= date.day %>
@@ -117,7 +134,7 @@
             </div>
           <% end %>
         <% end %>
-      <%# </div> %>
+      </div>
     <%# </div> %>
   </div>
 <% end %>

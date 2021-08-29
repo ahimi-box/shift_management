@@ -22,7 +22,7 @@
             <p><%= @user.name %></p>
 
             <%= f.label :employment_status, class: "label-#{yield(:class_text)}" %>
-            <%= f.select :employment_status, [["正社員","正社員"], ["パート・アルバイト","パート・アルバイト"]], class: "form-control" %><br>
+            <%= f.select :employment_status, [["未","未"],["正社員","正社員"], ["パート・アルバイト","パート・アルバイト"]], class: "form-control" %><br>
 
             <%= f.label :basic_time, class: "label-#{yield(:class_text)}" %>
             <%= f.time_field :basic_time, class: "form-control" %>

@@ -1,12 +1,13 @@
 class ShiftsController < ApplicationController
   before_action :set_user, only: [:show, :edit, :edit_one_month, :update_one_month, :apply_edit]
-  before_action :logged_in_user, only: [:edit, :update, :edit_one_month]
+  # before_action :logged_in_user, only: [:edit, :update, :edit_one_month]
   # # アクセスしたユーザーが現在ログインしているユーザーか確認します。
   before_action :correct_user, only: [ :edit_one_month, :update_one_month]
   before_action :correct_user2, only: [:index]
   before_action :set_one_month, only: [:apply_edit, :edit, :edit_one_month]
   before_action :set_one_day, only: :show
   before_action :admin_user, only: [:apply_edit, :edit]
+  before_action :authenticate_user!, only: [:edit, :update, :edit_one_month]
 
   def index
     @user = User.find(params[:user_id])
@@ -83,16 +84,18 @@ class ShiftsController < ApplicationController
     ActiveRecord::Base.transaction do # トランザクションを開始します。
       apply_update_params.each do |id, item1|
         item1.each do |id, item2|
-          item2[:apply_check] == "true"
-          shift = Shift.find(id)
-          shift.update_attributes!(item2)
+          if item2[:apply_check] == "true"
+            shift = Shift.find(id)
+            shift.update_attributes!(item2)
+          end 
         end
       end
       flash[:success] = "シフトの決定を送信しました。"
-      redirect_to apply_edit_user_shift_path(@user,@shift, date: params[:date])
+      # byebug
+      redirect_to apply_edit_user_shift_path(@user, date: params[:date])
     rescue ActiveRecord::RecordInvalid # トランザクションによるエラーの分岐です。
       flash[:danger] = "無効な入力データがあった為、申請をキャンセルしました。"
-      redirect_to apply_edit_user_shift_path(@user,@shift, date: params[:date])
+      redirect_to apply_edit_user_shift_path(@user, date: params[:date])
     end  
   end
 
@@ -158,7 +161,7 @@ class ShiftsController < ApplicationController
     def correct_user2
       # byebug
       @user = User.find(params[:user_id])
-      redirect_to(root_url) unless current_user?(@user)
+      redirect_to(root_url) unless current_user == @user
       # flash[:danger] = "不正なアクセスです。"
     end
 
@@ -167,5 +170,5 @@ class ShiftsController < ApplicationController
       redirect_to root_url unless current_user.admin?
       # flash[:danger] = "不正なアクセスです。"
     end
-
+     
 end

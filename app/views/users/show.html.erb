@@ -48,6 +48,7 @@
 
 
   <%# <div class="col-md-8"> %>
+  <div class="col-md-10 col-md-offset-1 table-responsive">
     <%= month_calendar events: @shifts do |date, shifts| %>
     <%# <%= week_calendar(number_of_weeks: 2) events: @shifts do |date, shifts| %> 
       <%= date.day %>
@@ -63,11 +64,22 @@
             <% if shift.decided_leaving_time.present? %>
             <%= shift.decided_leaving_time&.strftime("%H:%M") %><br>
             <% end %>
-            <% if shift.user_memo.present? && shift.determined_arrival_time.present? && shift.decided_leaving_time.present? %>
+            <%# <% if shift.user_memo.present? && shift.determined_arrival_time.present? && shift.decided_leaving_time.present?  %>
+            <% if shift.user_memo.present? && shift.apply_check == true %>
             <%= shift.user_memo %><br>
             <% end %>
-            <% if shift.admin_memo.present? && shift.determined_arrival_time.present? && shift.decided_leaving_time.present? %>
-            <%= shift.admin_memo %>
+            <%# <% if shift.admin_memo.present? && shift.determined_arrival_time.present? && shift.decided_leaving_time.present?  %>
+            <% if shift.admin_memo.present? && shift.apply_check == true %>
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle btn-sm apply-font-size" type="button" data-toggle="dropdown" aria-expanded="false">
+                  管理者から
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="presentation"><%= shift.admin_memo %></li>
+                </ul>
+              </div>
+            <%# <%= shift.admin_memo  %>
             <% end %>
 
             <%# 管理者が決定したら表示する項目を作る %>
@@ -76,7 +88,7 @@
         </div>
       <% end %>
     <% end %>
-  <%# </div> %>
+  </div>
 <% end %>
 
 <%# <div> %>

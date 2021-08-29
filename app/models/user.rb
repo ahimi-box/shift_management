@@ -1,21 +1,25 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
   has_many :shifts, dependent: :destroy
   has_many :administrators, dependent: :destroy
   # accepts_nested_attributes_for :administrators, allow_destroy: true
 
-  attr_accessor :remember_token
-  before_save { self.email = email.downcase }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :name,  presence: true, length: { maximum: 50 }
-  validates :email, presence: true, length: { maximum: 100 },
-                    format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: true
-  validates :basic_time, presence: true
+  # attr_accessor :remember_token
+  # before_save { self.email = email.downcase }
+  # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  # validates :name,  presence: true, length: { maximum: 50 }
+  # validates :email, presence: true, length: { maximum: 100 },
+                    # format: { with: VALID_EMAIL_REGEX },
+                    # uniqueness: true
+  # validates :basic_time, presence: true
   
-  validates :employee_number, presence: true, uniqueness: true
-  validates :classification, uniqueness: true
-  has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  # validates :employee_number, presence: true, uniqueness: true
+  # validates :classification, uniqueness: true
+  # has_secure_password
+  # validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost

@@ -13,7 +13,9 @@
     <nav>
       <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
         <li><%= link_to "トップへ", root_path %></li>
-        <% if logged_in? %>
+        <%# <% if logged_in?  %>
+        <% if user_signed_in? %>
+          <%# Logged in as <strong><%= current_user.id </strong>. %>
           <% if current_user.admin? %>
             <li><%= link_to "ユーザ一覧", users_path %></li>
             <li><%= link_to "申請一覧", apply_edit_user_shift_path(current_user, current_user) %></li>
@@ -29,14 +31,17 @@
               <% if !current_user.admin? %>
                 <li><%= link_to "シフト申請", user_shifts_path(current_user, date: @first_day), class: "nav-link" %></li>
                 <li><%= link_to "シフト決定", current_user %></li>
-                <li><%= link_to "設定", edit_user_path(current_user) %></li>
+                <%# <li><%= link_to "設定", edit_user_path(current_user) </li> %>
+                <li><%= link_to 'プロフィール変更', edit_user_registration_path %></li>
               <% end %>
               <li class="divider"></li>
-              <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+              <%# <li><%= link_to "ログアウト", logout_path, method: :delete </li> %>
+              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
             <%# </ul> %>
           <%# </li> %>
         <% else %>
-          <li><%= link_to "ログイン", login_path %></li>
+          <%# <li><%= link_to "ログイン", login_path </li> %>
+          <li><%= link_to "ログイン", new_session_path(resource_name) %></li>
         <% end %>
       </ul>
     </nav>

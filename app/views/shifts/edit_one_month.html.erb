@@ -30,19 +30,23 @@
   <div>
     <p><%= link_to "←", edit_one_month_user_shift_path(@user,@user, date: @first_day.prev_month), class: "btn btn-primary btn-sm" %>【<%= l(@first_day, format: :middle) %>】<%= link_to "→", edit_one_month_user_shift_path(@user,@user, date: @first_day.next_month), class: "btn btn-primary btn-sm" %></p>
   </div>
-
+  <%# <div class="col-md-10 col-md-offset-1"> %>
+  
   <div>
-    <P class="comment_memo">※シフト管理者にコメントがあればメモにどうぞ</p>
+    <%# <P class="comment_memo">※シフト管理者にコメントがあればメモにどうぞ！</p> %>
+    <P class="comment_memo">※どうしても用事があってお休み希望の場合は管理者への✖を選択してください。</p>
+
+    <P class="comment_memo">※4日以上の休み、土日どちらも出られない場合は直接連絡ください。</p>
     <div class="table-responsive">
     
       <table class="table table-bordered table-condensed table-hover" id="table-attendances">
         <thead>
           <tr>
-            <th>日付</th>
-            <th>曜日</th>
-            <th>希望出勤時間</th>
-            <th>希望退勤時間</th>
-            <th>メモ</th> 
+            <th class="comment_memo">日付</th>
+            <th class="comment_memo">曜日</th>
+            <th class="comment_memo">希望出勤時間<br>希望退勤時間</th>
+            <%# <th class="comment_memo">希望退勤時間</th> %>
+            <th>管理者へ</th> 
             
           </tr>
         </thead>
@@ -66,10 +70,11 @@
                 <%= shift.hidden_field :desired_attendance_time ,value: day.started_at %>
                 <%= shift.hidden_field :desired_leave_time ,value: day.finished_at %>
 
-                <td><%= shift.time_field :started_at, class: "form-control" %></td>
-                <td><%= shift.time_field :finished_at, class: "form-control" %></td>
+                <td><%= shift.time_field :started_at, class: "form-control" %><br>
+                <%= shift.time_field :finished_at, class: "form-control" %></td>
                 <td>
-                  <%= shift.text_field :user_memo, class: "form-control" %>
+                  <%= shift.select :user_memo, [["✖","✖"],["有給","有給"], ["2時間働けます","②"], ["3時間働けます","③"], ["4時間働けます","④"], ["5時間働けます","⑤"], ["6時間働けます","⑥"], ["7時間働けます","⑦"], ["8時間働けます","⑧"]],{ include_blank: '選択してください'}, class: "form-control" %>
+                  <%# <%= shift.text_field :user_memo, class: "form-control" %> 
                 </td>
                 <% if @user.admin %>
                 <%# <td> %>

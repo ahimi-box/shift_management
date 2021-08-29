@@ -2,7 +2,7 @@
 <% if @user == current_user %>
   <div class="apply_edit">
     <h1>申請一覧</h1>
-
+      <%# <%debugger %>
     <%= form_with(model:[@user,@shift], url: apply_update_user_shift_path(date: @first_day), local: true, method: :patch) do |f| %>
 
       <div class="box"> 
@@ -27,11 +27,13 @@
       <div>
         <p><%= link_to "←", apply_edit_user_shift_path(@user, date: @first_day.prev_month), class: "btn btn-primary btn-sm" %>【<%= l(@first_day, format: :middle) %>】<%= link_to "→", apply_edit_user_shift_path(@user, date: @first_day.next_month), class: "btn btn-primary btn-sm" %></p>
       </div>
-      
+      <%# <P class="apply-font-size">※メモ</p> %>
+      <%# <P class="apply-font-size">※</p> %>
       <% @groups.each do |id, users| %>
         <% users.each do |user| %>
           
-          <% if current_user.admin? && !current_user?(user) %>
+          <% if current_user.admin? && current_user != user %>
+          
             <table class="table table-bordered table-hover float-sm-left " id="table-apply_edit">
               <thead>
                 <tr>
@@ -79,8 +81,22 @@
                         <td>
                           <%# <% if day.desired_attendance_time.present? && day.desired_leave_time.present? %>
                           
-                          <%= apply.check_box :apply_check, {}, "true", "false" %> 
-                          <%= day&.desired_attendance_time&.strftime('%H:%M') %><br><%= day&.desired_leave_time&.strftime('%H:%M')  %><br><%= day.user_memo%>
+                          <%= apply.check_box :apply_check, {}, "true", "false" %> <br>
+                          <%= day&.desired_attendance_time&.strftime('%H:%M') %><br><%= day&.desired_leave_time&.strftime('%H:%M')  %><br>
+                          <% if day.user_memo.present? %>
+                            <%= day.user_memo %>
+                          <% end %>
+                          <% if day.admin_memo.present? %>
+                            <div class="dropdown">
+                              <button class="btn btn-default dropdown-toggle btn-sm apply-font-size" type="button" data-toggle="dropdown" aria-expanded="false">
+                                メモ
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu">
+                                <li role="presentation"><%= day.admin_memo %></li>
+                              </ul>
+                            </div>
+                          <% end %>
                         </td>
                       <% end %>
                     <% end %> 
