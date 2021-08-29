@@ -75,6 +75,13 @@ class ShiftsController < ApplicationController
     @groups = User.eager_load(:shifts).all.where(shifts: {worked_on: @first_day..@last_day}).order(:classification).group_by(&:classification)
     @administrators = Administrator.all
     
+    # csv出力
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data render_to_string, filename: "#{@first_day.strftime('%Y年%m月')}シフト一覧情報.csv", type: :csv
+      end
+    end   
   end
   
   def apply_update

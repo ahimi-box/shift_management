@@ -24,7 +24,14 @@
         <p>※チェック済のみ送信されます。</p>
         <%= f.submit "シフト決定(皆さんにデータ送信)", class: "btn btn-primary btn-edit" %>
       </div>
+
       <div>
+        <p>※シフト決定(皆さんにデータ送信)後CSVでダウンロードしてください。</p>
+        <%# <%= link_to "CSV出力", users_path(format: :csv), class: "btn btn-primary" %> 
+        <%= link_to "CSV出力", apply_edit_user_shift_path(date: @first_day, format: :csv), class: "btn btn-info btn-sm" %>
+      </div>
+
+      <div class="apply-day">
         <p><%= link_to "←", apply_edit_user_shift_path(@user, date: @first_day.prev_month), class: "btn btn-primary btn-sm" %>【<%= l(@first_day, format: :middle) %>】<%= link_to "→", apply_edit_user_shift_path(@user, date: @first_day.next_month), class: "btn btn-primary btn-sm" %></p>
       </div>
       <%# <P class="apply-font-size">※メモ</p> %>
