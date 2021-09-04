@@ -22,7 +22,9 @@
 <% end %>
 
 <%- if devise_mapping.omniauthable? %>
+<%# <%debugger  %>
   <%- resource_class.omniauth_providers.each do |provider| %>
     <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post, class: 'btn btn-info btn-block' %><br />
+    
   <% end %>
 <% end %>

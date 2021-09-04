@@ -1,10 +1,10 @@
 <% provide(:title, 'Edit') %>
 <% provide(:class_text, 'user--edit') %>
 <% provide(:button_text, '更新') %>
-<h1>アカウント情報の更新</h1>
+<h1>プロフィール変更</h1>
 
 <%# <h1>Edit <%= resource_name.to_s.humanize </h1> %>
-
+<%# <%debugger %>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -30,27 +30,40 @@
       <% end %>
 
       <div class="field">
-        <%= f.label :password, class: "label-#{yield(:class_text)}" %> 
+        <%= f.label :password, class: "label-#{yield(:class_text)} " %> 
         <%# <i>(leave blank if you don't want to change it)</i><br /> %>
         <i>(空欄のままなら変更しません)</i><br />
-        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+        <%= f.password_field :password, autocomplete: "new-password", id:"textPassword", class: "form-control" %>
         <% if @minimum_password_length %>
           <%# <br /> %>
           <%# <em><%= @minimum_password_length  characters minimum</em> %>
           <em><%= @minimum_password_length %> 文字以上</em>
         <% end %>
+        <br>
+        <%# <input class="js-password-toggle" type="checkbox"> %>
+        <%# <span id="buttonEye" class="fa fa-eye" >パスワードを表示させる</span> %>
+        <span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()">パスワードを表示させる</span>
       </div>
 
       <div class="field">
         <%= f.label :password_confirmation, class: "label-#{yield(:class_text)}" %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", id:"textPassword2", class: "form-control" %>
+        <span id="buttonEye2" class="fa fa-eye" onclick="pushHideButton2()" >パスワードを表示させる</span>
       </div>
 
       <div class="field">
-        <%= f.label :current_password, class: "label-#{yield(:class_text)}" %> 
+        <% if false %>
+          <div>
+            <%= f.label :current_password %> <i><%= t(".current_password_warning") %></i><br />
+            <%= f.password_field :current_password, id:"textPassword3", class: "form-control"%>
+            
+            <span id="buttonEye3" class="fa fa-eye" onclick="pushHideButton3()" >パスワードを表示させる</span>
+          </div>
+        <% end %>
+        <%# <%= f.label :current_password, class: "label-#{yield(:class_text)}"   %>
         <%# <i>(we need your current password to confirm your changes)</i><br /> %>
-        <i>(変更を確認するには、現在のパスワードが必要です)</i><br />
-        <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+        <%# <i>(変更を確認するには、現在のパスワードが必要です)</i><br /> %>
+        <%# <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control"  %>
       </div>
 
       <div class="actions">
@@ -67,3 +80,43 @@
     <%# <%= link_to "Back", :back, class: "btn btn-primary" %> 
   </div>
 </div>
+
+<script language="javascript">
+  function pushHideButton() {
+    var txtPass = document.getElementById("textPassword");
+    var btnEye = document.getElementById("buttonEye");
+    if (txtPass.type === "text") {
+      txtPass.type = "password";
+      btnEye.className = "fa fa-eye";
+    } else {
+      txtPass.type = "text";
+      btnEye.className = "fa fa-eye-slash";
+    }
+  }
+
+  function pushHideButton2() {
+    var txtPass2 = document.getElementById("textPassword2");
+    var btnEye2 = document.getElementById("buttonEye2");
+    if (txtPass2.type === "text") {
+      txtPass2.type = "password";
+      btnEye2.className = "fa fa-eye";
+    } else {
+      txtPass2.type = "text";
+      btnEye2.className = "fa fa-eye-slash";
+    }
+  }
+
+  function pushHideButton3() {
+    var txtPass3 = document.getElementById("textPassword3");
+    var btnEye3 = document.getElementById("buttonEye3");
+    if (txtPass3.type === "text") {
+      txtPass3.type = "password";
+      btnEye3.className = "fa fa-eye";
+    } else {
+      txtPass3.type = "text";
+      btnEye3.className = "fa fa-eye-slash";
+    }
+  }
+
+
+</script>

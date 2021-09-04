@@ -10,10 +10,14 @@
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
       </div>
 
-      <div class="field">
+      <div class="field" id="fieldPassword">
+      
         <%= f.label :password, class: "label-login"  %><br />
-        <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
-        <%= link_to "パスワードを忘れましたか？", new_password_path(resource_name) %>
+        <%= f.password_field :password, autocomplete: "current-password", id:"textPassword", class: 'form-control'%>
+        <span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()">パスワードを表示させる</span>
+        <br>
+      
+        <%= link_to "パスワードを忘れましたか？", new_password_path(resource_name)%>
       </div>
 
       <% if devise_mapping.rememberable? %>
@@ -24,13 +28,33 @@
       <% end %>
 
       <div class="actions">
-        <%= f.submit "ログイン", class: "btn btn-primary btn-block" %>
+        <p><%= f.submit "ログイン", class: "btn btn-primary btn-block" %></p>
+        <%# <p><%= link_to "LINEアカウントでLogin", user_line_omniauth_authorize_path, method: :post, class: 'btn btn-info btn-block' </p> %>
       </div>
     <% end %>
     <hr>
+    <div>
+      <p><%= link_to "LINEアカウントでログイン", user_line_omniauth_authorize_path, method: :post, class: 'btn btn-success btn-block' %></p>
+      <p><%= link_to "googleアカウントでログイン", user_google_oauth2_omniauth_authorize_path, method: :post, class: 'btn btn-danger btn-block' %></p>
+    </div>
+    <hr>
     <div class="field">
-      <p><%= link_to "アカウントをお持ちでない方", new_registration_path(resource_name), class: 'btn btn-success btn-block'%> </p> 
+      <p><%= link_to "アカウントをお持ちでない方", new_registration_path(resource_name), class: 'btn btn-default btn-block'%> </p> 
     </div>
     <%# <%= render "users/shared/links"%>   
   </div>
-</div>  
+</div> 
+
+<script language="javascript">
+  function pushHideButton() {
+    var txtPass = document.getElementById("textPassword");
+    var btnEye = document.getElementById("buttonEye");
+    if (txtPass.type === "text") {
+      txtPass.type = "password";
+      btnEye.className = "fa fa-eye";
+    } else {
+      txtPass.type = "text";
+      btnEye.className = "fa fa-eye-slash";
+    }
+  }
+</script>

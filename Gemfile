@@ -31,6 +31,14 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 
+# LINEログイン
+gem 'omniauth-line'
+gem 'dotenv-rails'
+gem "omniauth-rails_csrf_protection"
+# googleログイン
+gem 'omniauth-google-oauth2'
+
+
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

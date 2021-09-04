@@ -14,15 +14,20 @@ CSV.generate do |csv|
           # day.worked_on
         # ]
         # else
-        csv_column_values = [ 
+        
+
+        csv_column_values = [
+           
           shift.worked_on&.strftime("%-m/%-d"),
           user.name,
           shift.determined_arrival_time&.strftime("%H:%M"), 
           shift.decided_leaving_time&.strftime("%H:%M"),
           # day.started_at,
           # day.finished_at,
+          
         ]
         # end
+          
         csv << csv_column_values
       end
     end

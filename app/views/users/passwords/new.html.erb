@@ -10,8 +10,9 @@
       <%= render "users/shared/error_messages", resource: resource %>
 
       <div class="field">
+        
         <P>入力されたメールアドレスにパスワード再設定メールを送信します。</p>
-        <%= f.label :email, class: "label-#{yield(:class_text)}" %><br />
+        <%= f.label :email, class: "label-#{yield(:class_text)}" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
       </div>
 

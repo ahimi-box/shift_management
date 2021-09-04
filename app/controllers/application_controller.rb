@@ -104,6 +104,7 @@ def configure_permitted_parameters
     :password,
     :password_confirmation,
   ]
+  
   # アカウント登録
   devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
   # アカウント更新

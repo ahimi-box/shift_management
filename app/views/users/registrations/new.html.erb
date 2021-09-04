@@ -22,25 +22,65 @@
       </div>
 
       <div class="field">
-        <%= f.label :password, class: "label-#{yield(:class_text)}" %>
+        <%= f.label :password, class: "label-#{yield(:class_text)} js-password-label " %>
         <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> 文字以上)</em>
         <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control js-Password" %>
+        <input class="js-password-toggle" type="checkbox">
+        <span id="buttonEye" class="fa fa-eye" >パスワードを表示させる</span>
       </div>
 
       <div class="field">
-        <%= f.label :password_confirmation, class: "label-#{yield(:class_text)}" %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+        <%= f.label :password_confirmation, class: "label-#{yield(:class_text)} js-password-label" %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", 
+         class: "form-control js-Password" %>
+         <input class="js-password-toggle" type="checkbox">
+        <span id="buttonEye" class="fa fa-eye" >パスワードを表示させる</span>
       </div>
+      <%# id:"textPassword2", %>
 
       <div class="actions">
         <%# <%= f.submit "Sign up" %> 
-        <%= f.submit "#{yield(:button_text)}", class: "btn btn-primary btn-block btn-#{yield(:button_text)} btn-form" %>
+        <p><%= f.submit "#{yield(:button_text)}", class: "btn btn-primary btn-block btn-#{yield(:button_text)} btn-form" %></p>
+        
       </div>
     <% end %>
+    <hr>
+    <div>
+      <p><%= link_to "LINEアカウントで登録", user_line_omniauth_authorize_path, method: :post, class: 'btn btn-success btn-block' %></p>
+      <p><%= link_to "googleアカウントで登録", user_google_oauth2_omniauth_authorize_path, method: :post, class: 'btn btn-danger btn-block' %></p>
+    </div>
 
     <hr>
-    <P><%= render "users/shared/links" %></p>
+    <div>
+      <p><%= link_to "ログインへ", new_session_path(resource_name), class: "btn btn-default btn-block btn-login " %></p>
+      
+      
+    </div>
+    <%# <P><%= render "users/shared/links" </p> %>
+    
   </div>
 </div>
+
+<script language="javascript">
+  const passwordToggles = document.querySelectorAll('.js-password-toggle');
+
+  passwordToggles.forEach((el) => {
+    el.addEventListener('change', function () {
+      const password = el.previousElementSibling,
+            passwordLabel = el.nextElementSibling;
+      if (password.type === 'password') {
+        password.type = 'text';
+        // passwordLabel.innerHTML = '<span class="fas fa-eye-slash"></span>';
+        passwordLabel.className = "fa fa-eye-slash";
+      } else {
+        password.type = 'password';
+        // passwordLabel.innerHTML = '<span class="fas fa-eye"></span>';
+        passwordLabel.className = "fa fa-eye";
+      }
+      password.focus();
+    });
+  });
+
+</script>

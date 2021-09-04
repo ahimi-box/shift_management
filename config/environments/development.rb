@@ -56,16 +56,29 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # config.action_mailer.perform_caching = true
   # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   :enable_starttls_auto => true,
+  #   :address => "smtp.gmail.com",
+  #   :port => 587,
+  #   :domain => 'smtp.gmail.com',
+  #   :user_name => "testtestabe07@gmail.com",
+  #   # :password => "urpnisifptqexnot",
+  #   :password => "test_test",
+  #   :authentication => 'login'
+  # }
+
+  # for SMTP
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :enable_starttls_auto => true,
-    :address => "smtp.gmail.com",
-    :port => 587,
-    :domain => 'smtp.gmail.com',
-    :user_name => "testtestabe07@gmail.com",
-    # :password => "urpnisifptqexnot",
-    :password => "test_test",
-    :authentication => 'login'
+    user_name: 'your_sendgrid_username',
+    password: 'your_sendgrid_password',
+    domain: 'example.com',
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    authentication: :plain,
+    enable_starttls_auto: true
+      
   }
-  
-end
+
+  end

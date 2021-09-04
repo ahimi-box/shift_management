@@ -11,6 +11,8 @@
 
     <%# timeline %>
     <%= javascript_include_tag "//www.google.com/jsapi" %>
+    <%# パスワード目 %>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   </head>
 
   <body>
@@ -32,7 +34,7 @@
         <% end %>
       <% end %>  
       <%= yield %>
-      <%= debug(params) if Rails.env.development? %>
+      <%# <%= debug(params) if Rails.env.development? %> 
     </div>    
   </body>
 </html>
