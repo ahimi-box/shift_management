@@ -53,7 +53,8 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # devise認証メール内URL（例１）
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'smtp.sendgrid.net' }
   # config.action_mailer.perform_caching = true
   # config.action_mailer.raise_delivery_errors = true
   # config.action_mailer.delivery_method = :smtp
@@ -71,9 +72,9 @@ Rails.application.configure do
   # for SMTP
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: 'your_sendgrid_username',
-    password: 'your_sendgrid_password',
-    domain: 'example.com',
+    user_name: ENV['SENDGRID_USERNAME'],
+    password: ENV['SENDGRID_PASSWORD'],
+    domain: "heroku.com",
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
