@@ -24,74 +24,7 @@
       <%= link_to "シフト決定画面へ", user_path(@user, date: @first_day), class: "btn btn-primary btn-sm" %>
 
     </div>
-    <%# <div class="row"> %>
-      <%# <div class="col-md-4"> %>
-        <%# <div class="schedule">一覧</div> %>
-        <%# <table class="table"> %>
-          <%# <thead class="thead-light"> %>
-            <%# <tr> %>
-              <%# <th>日付</th> %>
-              <%# <th>希望出勤時間</th> %>
-              <%# <th>希望退勤時間</th> %>
-              <%# <th>メモ</th> %>
-              
-            <%# </tr> %>
-          <%# </thead> %>
-
-          <%# <tbody> %>
-            <%# <% @shifts.each do |shift| %> 
-              <%# <% if params[:start_date].present?  %> 
-                <%# <% start_date = params[:start_date].to_date  %> 
-                <%# <%debugger %>
-                <%# <% if shift.start_time&.strftime("%y-%m") == start_date&.strftime("%y-%m") %> 
-                  <%# <tr> %>
-                    <%# <% if @user.id == shift.user_id %> 
-                      <%# <%debugger%>
-                      <%# <td><%= shift.worked_on&.strftime("%m-%d") </td> 
-                      <%# <td><%= shift.start_time.strftime("%m-%d") </td>%> 
-                      <%# <td><%= shift.started_at&.strftime("%H:%M")</td> %> 
-                      <%# <td><%= shift.finished_at&.strftime("%H:%M") </td>%> 
-                      <%# <td><%= shift.user_memo </td> %>
-                      <%# <td><%= shift.admin_memo </td> %>
-                    <%# <% end %>
-                  <%# </tr> %>
-                <%# <% end  %>
-              <%# <% end  %>
-            <%# <% end  %>
-          <%# </tbody> %>
-        <%# </table> %>
-        <%# <%= form_with(model: [@user,@shift], local: true) do |form|  %>
-          <%# <div class="title"> %>
-            <%# <div class="form-tag">日付</div> %>
-            <%# <%= form.text_field :worked_on %> 
-            <%# <div class="form-tag">日付</div> %>
-            <%# <%= form.datetime_select :start_time %> 
-            <%# <%= form.date_select :start_time  %>
-            <%# <%= form.hidden_field :worked_on  %>
-          <%# </div> %>
-          <%# <div class="time"> %>
-            <%# <div class="form-tag">希望出勤時間</div> %>
-            <%# <%= form.time_field :started_at, {min: '09:30' , max: '20:30'} %> 
-            <%# <%= form.time_select :started_at, {include_blank: true, minute_step: 15, ignore_date: true}  %>
-            <%# <div class="form-tag">希望退勤時間</div> %>
-            <%# <%= form.time_select :finished_at, {include_blank: true, minute_step: 15, ignore_date: true}  %>
-          <%# </div> %>
-          <%# <div class="content"> %>
-            <%# <div class="form-tag">メモ</div> %>
-            <%# <%= form.text_field :user_memo  %>
-          <%# </div> %>
-          <%# <% if @user.admin  %>
-            <%# <div class="content"> %>
-              <%# <div class="form-tag">皆さんにお知らせ</div> %>
-              <%# <%= form.text_field :admin_memo  %>
-            <%# </div> %>
-          <%# <% end  %>
-
-          <%# <div class="submit index-submit"> %>
-            <%# <%= form.submit  %>
-          <%# </div> %>
-        <%# <% end  %>
-      <%# </div> %>
+    
       <div class="box"> 
         <% if @administrators.present? %>
           <p class="admin_memo">皆さんにお知らせ</p>
