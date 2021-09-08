@@ -17,6 +17,9 @@
 
 <div class="col-md-10 col-md-offset-1">
   <%= will_paginate %>
+  <div>
+  <%= link_to "申請一覧", apply_edit_user_shift_path(current_user, current_user) %>
+  </div>
     <table class="table table-condensed table-hover" id="table-users">
       <thead>
         <tr>
