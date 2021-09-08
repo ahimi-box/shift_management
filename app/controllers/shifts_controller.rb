@@ -7,7 +7,7 @@ class ShiftsController < ApplicationController
   before_action :set_one_month, only: [:apply_edit, :edit, :edit_one_month]
   before_action :set_one_day, only: :show
   before_action :admin_user, only: [:apply_edit, :edit]
-  before_action :authenticate_user!, only: [:edit, :update, :edit_one_month]
+  before_action :authenticate_user!, only: [:edit, :update, :edit_one_month, :apply_edit]
 
   def index
     @user = User.find(params[:user_id])
