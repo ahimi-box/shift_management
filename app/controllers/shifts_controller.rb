@@ -73,7 +73,8 @@ class ShiftsController < ApplicationController
     @user = User.find(params[:user_id])
     @shift = Shift.find(params[:id])
     # byebug
-    @groups = User.eager_load(:shifts).all.where(shifts: {worked_on: @first_day..@last_day}).order(:classification).group_by(&:classification)
+    # @groups = User.eager_load(:shifts).all.where(shifts: {worked_on: @first_day..@last_day}).order(:classification).group_by(&:classification)
+    @groups = User.eager_load(:shifts).all.where(shifts: {worked_on: @first_day..@last_day}).order("shifts.worked_on", :classification).group_by(&:classification)
     @administrators = Administrator.all
     
     # csv出力
