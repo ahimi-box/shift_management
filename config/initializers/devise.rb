@@ -318,10 +318,10 @@ Devise.setup do |config|
   #カスタマイズを有効
   config.scoped_views = true
   # LINEログイン
-  config.omniauth :line, ENV['LINE_KEY'], ENV['LINE_SECRET'], callback_url: "https://fc20-240f-3f-9d2b-1-c886-3d49-3251-7bf9.ngrok.io/users/auth/line/callback"
+  config.omniauth :line, ENV['LINE_KEY'], ENV['LINE_SECRET'], callback_url: "https://infinite-eyrie-12132.herokuapp.com/users/auth/line/callback"
   # Googleログイン
   # config.omniauth :google_oauth2,ENV['GOOGLE_CLIENT_ID'],ENV['GOOGLE_CLIENT_SECRET'], scope:'email',redirect_uri:"#{ENV['HOST']}/users/auth/google_oauth2/callback"
-  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], scope:'email', redirect_uri:"http://localhost:3000/users/auth/google_oauth2/callback"
+  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], scope:'email', redirect_uri:"https://infinite-eyrie-12132.herokuapp.com/users/auth/google_oauth2/callback"
   # config.omniauth :google_oauth2,ENV['GOOGLE_CLIENT_ID'],ENV['GOOGLE_CLIENT_SECRET'], scope:'email', redirect_uri: "https://0e03-240f-3f-9d2b-1-a4e2-649d-f461-bc76.ngrok.io/users/auth/google_oauth2/callback"
   OmniAuth.config.logger = Rails.logger if Rails.env.development? # debug用
 end
