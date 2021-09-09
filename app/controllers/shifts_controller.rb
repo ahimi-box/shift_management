@@ -68,6 +68,9 @@ class ShiftsController < ApplicationController
 
   end
 
+  def apply_show
+  end
+
   def apply_edit
     @user = User.find(params[:user_id])
     @shift = Shift.find(params[:id])

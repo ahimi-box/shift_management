@@ -38,6 +38,7 @@ Rails.application.routes.draw do
         get 'edit_one_month'
         patch 'update_one_month'
 
+        get 'apply_show'
         get 'apply_edit'
         patch 'apply_update'
         # get 'apply_confirmation_edit'
