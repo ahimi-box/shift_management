@@ -89,7 +89,7 @@ class ShiftsController < ApplicationController
   def apply_update
     # byebug
     @user = User.find(params[:user_id])
-    @shift = @user.shifts.find_by(params[:id])
+    @shift = @user.shifts.find(params[:id])
     ActiveRecord::Base.transaction do # トランザクションを開始します。
       apply_update_params.each do |id, item1|
         item1.each do |id, item2|
