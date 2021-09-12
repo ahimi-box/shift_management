@@ -41,8 +41,7 @@ class ShiftsController < ApplicationController
     # byebug
     @shift = Shift.find_by(user_id: params[:user_id])
     @shifts = @user.shifts.where(worked_on: @first_day..@last_day).order(:worked_on)
-    # @groups = Shift.find(params[:id])
-    # @groups = Shift.all.group_by(&:user_id)
+    
   end
 
   def update
