@@ -55,7 +55,7 @@ Rails.application.configure do
   # devise認証メール内URL（例１）
   # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # config.action_mailer.default_url_options = { host: 'smtp.sendgrid.net' }
-  config.action_mailer.default_url_options = { :host => 'example.com' }
+  config.action_mailer.default_url_options = { :host => 'https://infinite-eyrie-12132.herokuapp.com/' }
   # config.action_mailer.perform_caching = true
   # config.action_mailer.raise_delivery_errors = true
   # config.action_mailer.delivery_method = :smtp
