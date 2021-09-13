@@ -27,7 +27,10 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"  
 
   config.action_mailer.perform_caching = true
 
@@ -53,9 +56,9 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # devise認証メール内URL（例１）
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # config.action_mailer.default_url_options = { host: 'smtp.sendgrid.net' }
-  # config.action_mailer.default_url_options = { :host => 'https://infinite-eyrie-12132.herokuapp.com/' }
+  config.action_mailer.default_url_options = { :host => 'https://infinite-eyrie-12132.herokuapp.com/' }
   # config.action_mailer.perform_caching = true
   # config.action_mailer.raise_delivery_errors = true
   # config.action_mailer.delivery_method = :smtp
@@ -82,5 +85,6 @@ Rails.application.configure do
     enable_starttls_auto: true
       
   }
+  ActionMailer::Base.delivery_method = :smtp
 
   end

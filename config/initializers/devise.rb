@@ -29,7 +29,6 @@ Devise.setup do |config|
   # アプリで使用するgmailアドレス
   # config.mailer_sender = 'testtestabe07@gmail.com'
   config.mailer_sender = "mail-to-send@from.com"
-  # config.mailer_sender = 'ahimihimi53@gmail.com'
   # config.mailer_sender = 'no-reply@example.com'
 
   # Configure the class responsible to send e-mails.

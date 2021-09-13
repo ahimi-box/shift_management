@@ -90,5 +90,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # 追加
-  config.action_mailer.default_url_options = { :Host => 'https://infinite-eyrie-12132.herokuapp.com/' }
+  # config.action_mailer.default_url_options = { :Host => 'https://infinite-eyrie-12132.herokuapp.com/' }
 end
