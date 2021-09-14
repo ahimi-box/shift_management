@@ -90,7 +90,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # 追加
-  config.action_mailer.default_url_options = { :Host => 'https://infinite-eyrie-12132.herokuapp.com/' }
+  config.action_mailer.default_url_options = { :Host => 'https://agile-hamlet-81813.herokuapp.com/' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     user_name: ENV['SENDGRID_USERNAME'],
