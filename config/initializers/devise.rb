@@ -319,13 +319,12 @@ Devise.setup do |config|
   # LINEログイン
   # config.omniauth :line, ENV['LINE_KEY'], ENV['LINE_SECRET'], callback_url: "https://infinite-eyrie-12132.herokuapp.com/callback"
   # config.omniauth :line, ENV['LINE_KEY'], ENV['LINE_SECRET'], callback_url: "https://radiant-cove-45320.herokuapp.com/users/auth/line/callback"
-  config.omniauth :line, ENV['LINE_KEY'], ENV['LINE_SECRET'], callback_url: "https://hidden-sea-16106.herokuapp.com/
-  users/auth/line/callback"
+  config.omniauth :line, ENV['LINE_KEY'], ENV['LINE_SECRET'], callback_url: "https://ancient-headland-48972.herokuapp.com/users/auth/line/callback"
   # Googleログイン
   # config.omniauth :google_oauth2,ENV['GOOGLE_CLIENT_ID'],ENV['GOOGLE_CLIENT_SECRET'], scope:'email',redirect_uri:"#{ENV['HOST']}/users/auth/google_oauth2/callback"
   # config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], scope:'email', redirect_uri:"https://infinite-eyrie-12132.herokuapp.com/callback"
   # config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], scope:'email', redirect_uri:"https://radiant-cove-45320.herokuapp.com/users/auth/google_oauth2/callback"
-  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], scope:'email', redirect_uri:"https://hidden-sea-16106.herokuapp.com/users/auth/google_oauth2/callback"
+  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], scope:'email', redirect_uri:"https://ancient-headland-48972.herokuapp.com/users/auth/google_oauth2/callback"
   # config.omniauth :google_oauth2,ENV['GOOGLE_CLIENT_ID'],ENV['GOOGLE_CLIENT_SECRET'], scope:'email', redirect_uri: "https://0e03-240f-3f-9d2b-1-a4e2-649d-f461-bc76.ngrok.io/users/auth/google_oauth2/callback"
   OmniAuth.config.logger = Rails.logger if Rails.env.development? # debug用
 end
