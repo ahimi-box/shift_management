@@ -102,5 +102,7 @@ Rails.application.configure do
     enable_starttls_auto: true
       
   }
+  # Default Mailer Host
+  Rails.application.routes.default_url_options[:host] = 'domain.com'
 
 end

@@ -51,5 +51,7 @@ Rails.application.configure do
     :password => "test_test",
     :authentication => 'login'
   }
+  # Default Mailer Host
+  Rails.application.routes.default_url_options[:host] = 'domain.com'
 
 end
