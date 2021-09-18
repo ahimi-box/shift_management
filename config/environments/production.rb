@@ -107,6 +107,6 @@ Rails.application.configure do
       
   }
   # Default Mailer Host
-  Rails.application.routes.default_url_options[:host] = 'domain.com'
+  Rails.application.routes.default_url_options[:host] = 'https://ancient-headland-48972.herokuapp.com/'
 
 end
