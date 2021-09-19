@@ -106,6 +106,7 @@ Rails.application.configure do
     enable_starttls_auto: true
       
   }
+  # メールのフォームからパスワードリ再設定のアドレスに飛ぶ
   # Default Mailer Host
   Rails.application.routes.default_url_options[:host] = 'https://ancient-headland-48972.herokuapp.com/'
 

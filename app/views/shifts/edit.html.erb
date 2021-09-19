@@ -34,8 +34,13 @@
           <td><%= day&.started_at&.strftime('%H:%M')%><br><%= day&.finished_at&.strftime('%H:%M') %></td>
           <td><%= day.user_memo%></td>
           <%= f.fields_for "shift[]", day do |apply| %>
-        
-            <td><%= apply.time_field :desired_attendance_time, class: "form-control" %><br><%= apply.time_field :desired_leave_time, class: "form-control" %></td>
+
+            <% if (day.started_at == day.desired_attendance_time ) && (day.finished_at == day.desired_leave_time) %>
+              <td><%= apply.time_field :desired_attendance_time, class: "form-control" %><br><%= apply.time_field :desired_leave_time, class: "form-control" %></td>
+            <% else %>
+              <td class="edit-color"><%= apply.time_field :desired_attendance_time, class: "form-control" %><br><%= apply.time_field :desired_leave_time, class: "form-control" %></td>
+
+            <% end %>
             <td><%= apply.text_field :admin_memo ,class: "form-control" %></td>
           <% end %>
         </tr>

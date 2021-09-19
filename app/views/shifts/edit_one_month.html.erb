@@ -67,20 +67,39 @@
                 </td>
                 <%= shift.hidden_field :start_time ,value: day.worked_on %>
                 
-                <%= shift.hidden_field :desired_attendance_time ,value: day.started_at %>
-                <%= shift.hidden_field :desired_leave_time ,value: day.finished_at %>
+                <%# <%= shift.hidden_field :desired_attendance_time ,value: day.started_at  %>
+                <%# <%= shift.hidden_field :desired_leave_time ,value: day.finished_at  %>
+                <%= shift.hidden_field :desired_attendance_time %>
+                <%= shift.hidden_field :desired_leave_time %>
+<%# <%debugger %>
+                <%# <% if Date.current > day.worked_on  %>
+                <%# +14日後入力不可に設定 %>
+                <% if Date.current+14 > day.worked_on %>
+                  <td><%= shift.time_field :started_at, readonly: true, class: "form-control"%> <br>
+                  <%= shift.time_field :finished_at, readonly: true, class: "form-control" %></td> 
+                  <td>
+                    <%= shift.select :user_memo, [["✖","✖"],["/","/"],["有給","有給"], ["2時間働けます","②"], ["3時間働けます","③"], ["4時間働けます","④"], ["5時間働けます","⑤"], ["6時間働けます","⑥"], ["7時間働けます","⑦"], ["8時間働けます","⑧"]],{ include_blank: '選択してください'}, readonly: true, class: "form-control disabled", tabindex:"-1" %> 
+                  </td>
 
-                <td><%= shift.time_field :started_at, class: "form-control" %><br>
-                <%= shift.time_field :finished_at, class: "form-control" %></td>
-                <td>
-                  <%= shift.select :user_memo, [["✖","✖"],["有給","有給"], ["2時間働けます","②"], ["3時間働けます","③"], ["4時間働けます","④"], ["5時間働けます","⑤"], ["6時間働けます","⑥"], ["7時間働けます","⑦"], ["8時間働けます","⑧"]],{ include_blank: '選択してください'}, class: "form-control" %>
-                  <%# <%= shift.text_field :user_memo, class: "form-control" %> 
-                </td>
-                <% if @user.admin %>
+                  <%# <td><%= shift.time_field :started_at, disabled: true, class: "form-control" <br> %>
+                  <%# <%= shift.time_field :finished_at, disabled: true, class: "form-control" </td> %>
+                  <%# <td> %>
+                    <%# <%= shift.select :user_memo, [["✖","✖"],["/","/"],["有給","有給"], ["2時間働けます","②"], ["3時間働けます","③"], ["4時間働けます","④"], ["5時間働けます","⑤"], ["6時間働けます","⑥"], ["7時間働けます","⑦"], ["8時間働けます","⑧"]],{ include_blank: '選択してください'}, disabled: true, class: "form-control"  %>
+                    <%# <%= shift.text_field :user_memo, class: "form-control" %> 
+                  <%# </td> %>
+                <% else %>
+                  <td><%= shift.time_field :started_at, class: "form-control" %><br>
+                  <%= shift.time_field :finished_at, class: "form-control" %></td>
+                  <td>
+                    <%= shift.select :user_memo, [["✖","✖"],["/","/"],["有給","有給"], ["2時間働けます","②"], ["3時間働けます","③"], ["4時間働けます","④"], ["5時間働けます","⑤"], ["6時間働けます","⑥"], ["7時間働けます","⑦"], ["8時間働けます","⑧"]],{ include_blank: '選択してください'}, class: "form-control" %>
+                    <%# <%= shift.text_field :user_memo, class: "form-control" %> 
+                  </td>
+                <% end %>
+                <%# <% if @user.admin  %>
                 <%# <td> %>
                   <%# <%= shift.text_field :admin_memo, class: "form-control"  %>
                 <%# </td> %>
-                <% end %>
+                <%# <% end  %>
               </tr>
             <% end %>
           <% end %>
@@ -91,6 +110,9 @@
 
   <div class="center">
     <%= link_to "キャンセル", user_shifts_path(@user, date: @first_day), class: "btn btn-lg btn-primary" %>
+    <%# <% if Date.current+14 > @shifts.worked_on  %>
+      <%# <%= f.submit "シフト申請", class: "btn btn-lg btn-primary", disabled: "disabled" %>
+    <%# <% end  %>
     <%= f.submit "シフト申請", class: "btn btn-lg btn-primary" %>
   </div>
 

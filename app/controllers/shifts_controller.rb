@@ -118,9 +118,14 @@ class ShiftsController < ApplicationController
                 # byebug
         item1.each do |id,item2|
         # byebug
-          item2[:desired_attendance_time] = item2[:started_at]
-          item2[:desired_leave_time] = item2[:finished_at]
           shift = Shift.find(id)
+          if (item2[:desired_attendance_time] == "") && (item2[:desired_leave_time] == "")
+            item2[:desired_attendance_time] = item2[:started_at]
+            item2[:desired_leave_time] = item2[:finished_at]
+          end
+          # item2[:desired_attendance_time] = item2[:started_at]
+          # item2[:desired_leave_time] = item2[:finished_at]
+          
           # byebug
           shift.update_attributes!(item2)
         end
