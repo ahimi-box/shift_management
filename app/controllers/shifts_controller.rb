@@ -75,7 +75,7 @@ class ShiftsController < ApplicationController
     # @groups = User.eager_load(:shifts).all.where(shifts: {worked_on: @first_day..@last_day}).order(:classification).group_by(&:classification)
     @groups = User.eager_load(:shifts).all.where(shifts: {worked_on: @first_day..@last_day}).order("shifts.worked_on", :classification).group_by(&:classification)
     @administrators = Administrator.all
-    
+    # byebug
     # csv出力
     respond_to do |format|
       format.html
@@ -119,14 +119,15 @@ class ShiftsController < ApplicationController
         item1.each do |id,item2|
         # byebug
           shift = Shift.find(id)
-          if (item2[:desired_attendance_time] == "") && (item2[:desired_leave_time] == "")
+          
+          if (shift.desired_attendance_time == nil) && (shift.desired_leave_time == nil)
             item2[:desired_attendance_time] = item2[:started_at]
             item2[:desired_leave_time] = item2[:finished_at]
           end
           # item2[:desired_attendance_time] = item2[:started_at]
           # item2[:desired_leave_time] = item2[:finished_at]
           
-          # byebug
+          
           shift.update_attributes!(item2)
         end
       end

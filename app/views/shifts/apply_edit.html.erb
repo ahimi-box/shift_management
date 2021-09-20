@@ -89,7 +89,17 @@
                           <%# <% if day.desired_attendance_time.present? && day.desired_leave_time.present? %>
                           
                           <%= apply.check_box :apply_check, {}, "true", "false" %> <br>
-                          <%= day&.desired_attendance_time&.strftime('%H:%M') %><br><%= day&.desired_leave_time&.strftime('%H:%M')  %><br>
+                          <% if (day.started_at == day.desired_attendance_time ) && (day.finished_at == day.desired_leave_time) %>
+                            
+                            <%= day&.desired_attendance_time&.strftime('%H:%M') %><br><%= day&.desired_leave_time&.strftime('%H:%M')  %><br>
+                          <% else %>
+                            
+                            <div class="edit-fontcolor"><%= day&.desired_attendance_time&.strftime('%H:%M') %><br><%= day&.desired_leave_time&.strftime('%H:%M') %><br></div>
+
+                          <% end %>
+                          <%# <%= day&.desired_attendance_time&.strftime('%H:%M') %>
+                          <%# <br> %>
+                          <%# <%= day&.desired_leave_time&.strftime('%H:%M')  <br>  %>
                           <% if day.user_memo.present? %>
                             <%= day.user_memo %>
                           <% end %>
