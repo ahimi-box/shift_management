@@ -21,6 +21,7 @@
     <div>
       <%# <%= link_to "シフトの申請入力画面へ", shifts_edit_one_month_user_path(@user, date: @first_day), class: "btn btn-primary btn-sm" %> 
       <%= link_to "シフトの申請入力", edit_one_month_user_shift_path(@user,@user, date: @first_day), class: "btn btn-primary btn-sm" %>
+      
       <%= link_to "シフト決定画面へ", user_path(@user, date: @first_day), class: "btn btn-primary btn-sm" %>
 
     </div>

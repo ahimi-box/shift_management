@@ -77,7 +77,7 @@ GEM
     execjs (2.8.1)
     faker (2.19.0)
       i18n (>= 1.6, < 2)
-    faraday (1.7.2)
+    faraday (1.8.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -153,6 +153,7 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
+    pg (0.20.0)
     puma (3.12.6)
     racc (1.5.2)
     rack (2.2.3)
@@ -272,6 +273,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-line
   omniauth-rails_csrf_protection
+  pg (= 0.20.0)
   puma (~> 3.7)
   rails (~> 5.1.6)
   rails-i18n

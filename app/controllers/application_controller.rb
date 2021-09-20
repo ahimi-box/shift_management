@@ -66,7 +66,6 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
 
-
   # 一日
   def set_one_day
     # @first_day = Date.current.beginning_of_month
