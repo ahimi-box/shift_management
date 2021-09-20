@@ -57,12 +57,15 @@
               <% if @user.id == shift.user_id %>
                 <% if shift.started_at.present?%>
                 <%# <%= link_to shift.started_at&.strftime("%H:%M"), [@user,shift] %>
-                <%= link_to shift.started_at&.strftime("%H:%M"), edit_one_month_user_shift_path(@user,@user, date: @first_day) %><br>
+                <%# <%= link_to shift.started_at&.strftime("%H:%M"), edit_one_month_user_shift_path(@user,@user, date: @first_day) <br> %>
+                <%= shift.started_at&.strftime("%H:%M") %><br>
                 <% end %>
                 <% if shift.finished_at.present?%>
-                <%= link_to shift.finished_at&.strftime("%H:%M"), edit_one_month_user_shift_path(@user,@user, date: @first_day) %><br>
+                <%# <%= link_to shift.finished_at&.strftime("%H:%M"), edit_one_month_user_shift_path(@user,@user, date: @first_day) <br> %>
+                <%= shift.finished_at&.strftime("%H:%M") %><br>
                 <% end %>
-                <%= link_to shift.user_memo, edit_one_month_user_shift_path(@user,@user, date: @first_day) %>
+                <%# <%= link_to shift.user_memo, edit_one_month_user_shift_path(@user,@user, date: @first_day)  %>
+                <%= shift.user_memo %>
 
               <% end %>
             </div>
