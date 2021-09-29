@@ -85,7 +85,9 @@
                       <%= f.fields_for "apply_edit[]", day do |apply| %>
                         <%= apply.hidden_field :determined_arrival_time, value: day.desired_attendance_time %>
                         <%= apply.hidden_field :decided_leaving_time, value: day.desired_leave_time %>
-                        <% if (day.started_at == day.desired_attendance_time ) && (day.finished_at == day.desired_leave_time) %>
+                        
+                        
+                        <% if (day&.started_at&.strftime("%H:%M") == day&.desired_attendance_time&.strftime("%H:%M") ) && (day&.finished_at&.strftime("%H:%M") == day&.desired_leave_time&.strftime("%H:%M")) %>
                           <td>
                             <%# <% if day.desired_attendance_time.present? && day.desired_leave_time.present? %>  
                             <%= apply.check_box :apply_check, {}, "true", "false" %> <br>                             
