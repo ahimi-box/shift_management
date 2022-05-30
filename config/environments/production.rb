@@ -94,7 +94,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
-  config.action_mailer.default_url_options = { :Host => 'https://ancient-headland-48972.herokuapp.com/' }
+  config.action_mailer.default_url_options = { :Host => 'https://shift-management-test.herokuapp.com/' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     user_name: ENV['SENDGRID_USERNAME'],
@@ -108,6 +108,6 @@ Rails.application.configure do
   }
   # メールのフォームからパスワードリ再設定のアドレスに飛ぶ
   # Default Mailer Host
-  Rails.application.routes.default_url_options[:host] = 'https://ancient-headland-48972.herokuapp.com/'
+  Rails.application.routes.default_url_options[:host] = 'https://shift-management-test.herokuapp.com/'
 
 end
