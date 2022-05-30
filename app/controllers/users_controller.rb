@@ -28,7 +28,6 @@ class UsersController < ApplicationController
     # end
     # @worked_sum = @attendances.where.not(started_at: nil).count
     # byebug
-
     @shifts = Shift.all
     @administrators = Administrator.all
   end
