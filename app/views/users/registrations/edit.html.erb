@@ -32,14 +32,14 @@
       <div class="field">
         <%= f.label :password, class: "label-#{yield(:class_text)} " %> 
         <%# <i>(leave blank if you don't want to change it)</i><br /> %>
-        <i>(空欄のままなら変更しません)</i><br />
-        <%= f.password_field :password, autocomplete: "new-password", id:"textPassword", class: "form-control" %>
-        <% if @minimum_password_length %>
+        <i>(空欄のままなら変更しません)<% if @minimum_password_length %>
           <%# <br /> %>
-          <%# <em><%= @minimum_password_length  characters minimum</em> %>
-          <em><%= @minimum_password_length %> 文字以上</em>
+          <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
         <% end %>
-        <br>
+        <%# <br> %>
+        </i><br />
+        <%= f.password_field :password, autocomplete: "new-password", id:"textPassword", class: "form-control" %>
+        
         <%# <input class="js-password-toggle" type="checkbox"> %>
         <%# <span id="buttonEye" class="fa fa-eye" >パスワードを表示させる</span> %>
         <span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()">パスワードを表示させる</span>
