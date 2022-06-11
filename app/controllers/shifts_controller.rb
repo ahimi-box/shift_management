@@ -21,16 +21,14 @@ class ShiftsController < ApplicationController
     # byebug
     @user = User.find(params[:user_id])
     @shift = Shift.find(params[:id])
-    # byebug
-    @timeline = Shift.eager_load(:user).where(shifts: {worked_on: params[:date].to_date}).order("users.classification").map do |project|
-      # byebug
+    @timeline = Shift.eager_load(:user).where(users: {admin: nil}, shifts: {worked_on: params[:date].to_date}).order("users.classification").map do |project|
       project1 = User.find(project.user_id)
-      # byebug
       if project.desired_attendance_time.nil? && project.desired_leave_time.nil?
         project.desired_attendance_time = "09:00"
         project.desired_leave_time = "09:00"
       end 
-        [project1.name, intime(project), outtime(project)]
+    
+      [project1.name, intime(project), outtime(project)]
     end
     # byebug
 

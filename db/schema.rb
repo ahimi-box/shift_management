@@ -42,9 +42,9 @@ ActiveRecord::Schema.define(version: 20210829141728) do
     t.string "employment_status"
     t.integer "employee_number"
     t.boolean "admin"
-    t.datetime "basic_time", default: "2021-09-20 08:00:00"
-    t.datetime "basic_startwork_time", default: "2021-09-20 08:30:00"
-    t.datetime "basic_finishwork_time", default: "2021-09-20 18:30:00"
+    t.datetime "basic_time", default: "2022-06-11 08:00:00"
+    t.datetime "basic_startwork_time", default: "2022-06-11 08:30:00"
+    t.datetime "basic_finishwork_time", default: "2022-06-11 18:30:00"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "classification"
