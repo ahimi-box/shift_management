@@ -59,19 +59,15 @@ Rails.application.configure do
 
   # devise認証メール内URL（例１）
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  # config.action_mailer.default_url_options = { host: 'smtp.sendgrid.net' }
-  # config.action_mailer.default_url_options = { host: 'https://infinite-eyrie-12132.herokuapp.com/' }
-  # config.action_mailer.perform_caching = true
-  # config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
     :address => "smtp.gmail.com",
     # :port => 587,
     :domain => 'smtp.gmail.com',
-    :user_name => "testtestabe07@gmail.com",
+    :user_name => ENV['GOOGLE_USERNAME'],
     # :password => "urpnisifptqexnot",
-    :password => "test_test",
+    :password => ENV['GOOGLE_APIKEY'],
     :authentication => 'login'
   }
   # Default Mailer Host
