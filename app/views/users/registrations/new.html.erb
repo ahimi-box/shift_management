@@ -26,17 +26,15 @@
         <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> 文字以上)</em>
         <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password", class: "form-control js-Password" %>
-        <input class="js-password-toggle" type="checkbox">
-        <span id="buttonEye" class="fa fa-eye" >パスワードを表示させる</span>
+        <%= f.password_field :password, autocomplete: "new-password", id:"textPassword", class: "form-control" %>
+        <span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()">パスワードを表示させる</span>
       </div>
 
       <div class="field">
         <%= f.label :password_confirmation, class: "label-#{yield(:class_text)} js-password-label" %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", 
-         class: "form-control js-Password" %>
-         <input class="js-password-toggle" type="checkbox">
-        <span id="buttonEye" class="fa fa-eye" >パスワードを表示させる</span>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", id:"textPassword2", 
+         class: "form-control" %>
+        <span id="buttonEye2" class="fa fa-eye" onclick="pushHideButton2()" >パスワードを表示させる</span>
       </div>
       <%# id:"textPassword2", %>
 
@@ -64,23 +62,28 @@
 </div>
 
 <script language="javascript">
-  const passwordToggles = document.querySelectorAll('.js-password-toggle');
+  function pushHideButton() {
+    var txtPass = document.getElementById("textPassword");
+    var btnEye = document.getElementById("buttonEye");
+    if (txtPass.type === "text") {
+      txtPass.type = "password";
+      btnEye.className = "fa fa-eye";
+    } else {
+      txtPass.type = "text";
+      btnEye.className = "fa fa-eye-slash";
+    }
+  }
 
-  passwordToggles.forEach((el) => {
-    el.addEventListener('change', function () {
-      const password = el.previousElementSibling,
-            passwordLabel = el.nextElementSibling;
-      if (password.type === 'password') {
-        password.type = 'text';
-        // passwordLabel.innerHTML = '<span class="fas fa-eye-slash"></span>';
-        passwordLabel.className = "fa fa-eye-slash";
-      } else {
-        password.type = 'password';
-        // passwordLabel.innerHTML = '<span class="fas fa-eye"></span>';
-        passwordLabel.className = "fa fa-eye";
-      }
-      password.focus();
-    });
-  });
+  function pushHideButton2() {
+    var txtPass2 = document.getElementById("textPassword2");
+    var btnEye2 = document.getElementById("buttonEye2");
+    if (txtPass2.type === "text") {
+      txtPass2.type = "password";
+      btnEye2.className = "fa fa-eye";
+    } else {
+      txtPass2.type = "text";
+      btnEye2.className = "fa fa-eye-slash";
+    }
+  }
 
 </script>
