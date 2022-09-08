@@ -36,41 +36,45 @@
       </div>
       <%# <P class="apply-font-size">※メモ</p> %>
       <%# <P class="apply-font-size">※</p> %>
-      <% @groups.each do |id, users| %>
-        <% users.each do |user| %>
+      <%# <% @groups.each do |id, users|  %>
+        <%# <% users.each do |user| %> 
           
-          <% if current_user.admin? && current_user != user %>
+          <%# <% if current_user.admin? && current_user != user %> 
           
-            <table class="table table-bordered table-hover float-sm-left " id="table-apply_edit">
-              <thead>
-                <tr>
-                  <th>日付</th>
-                  <%# <% shift.each do |day| %> 
-                  <% user.shifts.each do |day| %>
-                    <% if user.shifts.present? %>
-                      <th><%= link_to l(day.worked_on, format: :short), user_shift_path(current_user, current_user, date: day.worked_on) %></th>
-                    <% end %>
+      <table class="table table-bordered table-hover float-sm-left " id="table-apply_edit">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <%# <% shift.each do |day| %> 
+            <% @shifts.each do |day| %>
+            <%# <% user.shifts.each do |day| %> 
+              <%# <% if user.shifts.present? %> 
+                <th><%= link_to l(day.worked_on, format: :short), user_shift_path(current_user, current_user, date: day.worked_on) %></th>
+              <%# <% end %> 
+            <% end %>
+          </tr>
+          <tr>
+            <th>曜日</th>
+            <%# <% shift.each do |day| %> 
+            <% @shifts.each do |day| %>
+            <%# <% user.shifts.each do |day| %> 
+              <%# <% if user.shifts.present? %> 
+                <th>
+                  <% if day.worked_on.wday == 0 %>
+                    <div class="sunday"><%= $days_of_the_week[day.worked_on.wday]%></div> 
+                  <% elsif day.worked_on.wday == 6 %>
+                    <div class="saturday"><%= $days_of_the_week[day.worked_on.wday]%></div> 
+                  <% else %>
+                    <%= $days_of_the_week[day.worked_on.wday] %>
                   <% end %>
-                </tr>
-                <tr>
-                  <th>曜日</th>
-                  <%# <% shift.each do |day| %> 
-                  <% user.shifts.each do |day| %>
-                    <% if user.shifts.present? %>
-                      <th>
-                        <% if day.worked_on.wday == 0 %>
-                          <div class="sunday"><%= $days_of_the_week[day.worked_on.wday]%></div> 
-                        <% elsif day.worked_on.wday == 6 %>
-                          <div class="saturday"><%= $days_of_the_week[day.worked_on.wday]%></div> 
-                        <% else %>
-                          <%= $days_of_the_week[day.worked_on.wday] %>
-                        <% end %>
-                      </th>
-                    <% end %>  
-                  <% end %>
-                </tr>
-              </thead>
-            
+                </th>
+              <%# <% end    %>
+            <% end %>
+          </tr>
+        </thead>
+        <% @groups.each do |id, users| %>
+          <% users.each do |user| %>
+            <% if current_user.admin? && current_user != user %>
               <tbody>
                 <tr>
                 <%# !current_user?(user) %>
@@ -150,13 +154,15 @@
                   <% end %>
                 </tr>
               </tbody>
-              
-            </table>
-            
-            
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
+      </table>
+            
+            
+          <%# <% end %> 
+        <%# <% end %> 
+      <%# <% end %> 
       <%# <%= link_to '消去',user_shift_path(@user,@shift.id), method: :delete, data: { confirm: '本当に削除しますか?' }, class: "btn btn-danger" %> 
       <%# <%= link_to '戻る', user_shifts_path, class: "btn btn-primary" %>
       <%#  %>
